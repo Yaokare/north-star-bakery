@@ -10,18 +10,18 @@
    DATA: Product catalog (array of objects)
    ---------------------------------------------------------- */
 const products = [
-  { id: "classic-sourdough",   name: "Classic Sourdough",              category: "Breads"    },
-  { id: "honey-oat-loaf",      name: "Honey Oat Loaf",                 category: "Breads"    },
-  { id: "seeded-rye",          name: "Seeded Rye",                     category: "Breads"    },
-  { id: "rosemary-focaccia",   name: "Rosemary Focaccia",              category: "Breads"    },
-  { id: "butter-croissant",    name: "Butter Croissant",               category: "Pastries"  },
-  { id: "fruit-danish",        name: "Seasonal Fruit Danish",          category: "Pastries"  },
-  { id: "morning-bun",         name: "Cinnamon Morning Bun",           category: "Pastries"  },
-  { id: "choc-almond",         name: "Chocolate Almond Croissant",     category: "Pastries"  },
+  { id: "classic-sourdough",   name: "Classic Sourdough",               category: "Breads"   },
+  { id: "honey-oat-loaf",      name: "Honey Oat Loaf",                  category: "Breads"   },
+  { id: "seeded-rye",          name: "Seeded Rye",                      category: "Breads"   },
+  { id: "rosemary-focaccia",   name: "Rosemary Focaccia",               category: "Breads"   },
+  { id: "butter-croissant",    name: "Butter Croissant",                category: "Pastries" },
+  { id: "fruit-danish",        name: "Seasonal Fruit Danish",           category: "Pastries" },
+  { id: "morning-bun",         name: "Cinnamon Morning Bun",            category: "Pastries" },
+  { id: "choc-almond",         name: "Chocolate Almond Croissant",      category: "Pastries" },
   { id: "vanilla-cake",        name: "Classic Vanilla Celebration Cake", category: "Cakes"   },
-  { id: "choc-ganache-cake",   name: "Dark Chocolate Ganache Cake",    category: "Cakes"     },
-  { id: "lemon-drizzle",       name: "Lemon Drizzle Loaf",             category: "Cakes"     },
-  { id: "carrot-cake",         name: "Carrot Cake",                    category: "Cakes"     }
+  { id: "choc-ganache-cake",   name: "Dark Chocolate Ganache Cake",     category: "Cakes"   },
+  { id: "lemon-drizzle",       name: "Lemon Drizzle Loaf",              category: "Cakes"   },
+  { id: "carrot-cake",         name: "Carrot Cake",                     category: "Cakes"   }
 ];
 
 /* ----------------------------------------------------------
@@ -71,8 +71,8 @@ function saveFavorites(favoritesArray) {
  * the favorites panel.
  */
 function toggleFavorite(productId) {
-  let favorites = loadFavorites();
-  const index = favorites.indexOf(productId);
+  var favorites = loadFavorites();
+  var index = favorites.indexOf(productId);
 
   if (index === -1) {
     favorites.push(productId);
@@ -91,11 +91,11 @@ function toggleFavorite(productId) {
  * every heart button on the page to show filled or empty state.
  */
 function updateHeartButtons() {
-  const favorites = loadFavorites();
-  const buttons = document.querySelectorAll(".fav-btn");
+  var favorites = loadFavorites();
+  var buttons = document.querySelectorAll(".fav-btn");
 
   buttons.forEach(function (btn) {
-    const productId = btn.getAttribute("data-product-id");
+    var productId = btn.getAttribute("data-product-id");
     if (favorites.includes(productId)) {
       btn.textContent = "♥ Saved";
       btn.classList.add("fav-btn--active");
@@ -114,13 +114,13 @@ function updateHeartButtons() {
  * Shows a placeholder message when no items are saved.
  */
 function updateFavoritesPanel() {
-  const panel = document.getElementById("favorites-panel");
+  var panel = document.getElementById("favorites-panel");
   if (!panel) return;
 
-  const favorites = loadFavorites();
-  const list = document.getElementById("favorites-list");
-  const emptyMsg = document.getElementById("favorites-empty");
-  const countEl = document.getElementById("favorites-count");
+  var favorites = loadFavorites();
+  var list      = document.getElementById("favorites-list");
+  var emptyMsg  = document.getElementById("favorites-empty");
+  var countEl   = document.getElementById("favorites-count");
 
   list.innerHTML = "";
 
@@ -134,13 +134,13 @@ function updateFavoritesPanel() {
   countEl.textContent = favorites.length;
 
   favorites.forEach(function (productId) {
-    const product = products.find(function (p) { return p.id === productId; });
+    var product = products.find(function (p) { return p.id === productId; });
     if (!product) return;
 
-    const li = document.createElement("li");
+    var li = document.createElement("li");
     li.textContent = product.name + " (" + product.category + ")";
 
-    const removeBtn = document.createElement("button");
+    var removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.className = "fav-remove-btn";
     removeBtn.setAttribute("aria-label", "Remove " + product.name + " from favorites");
@@ -160,12 +160,12 @@ function updateFavoritesPanel() {
  * renders the initial state from localStorage.
  */
 function initFavoritesFeature() {
-  const favButtons = document.querySelectorAll(".fav-btn");
-  if (favButtons.length === 0) return; // not on products page
+  var favButtons = document.querySelectorAll(".fav-btn");
+  if (favButtons.length === 0) return;
 
   favButtons.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      const productId = btn.getAttribute("data-product-id");
+      var productId = btn.getAttribute("data-product-id");
       toggleFavorite(productId);
     });
   });
@@ -185,10 +185,10 @@ function initFavoritesFeature() {
  * Creates the error element if it does not already exist.
  */
 function showError(fieldId, message) {
-  const field = document.getElementById(fieldId);
+  var field = document.getElementById(fieldId);
   if (!field) return;
 
-  let errorEl = document.getElementById(fieldId + "-error");
+  var errorEl = document.getElementById(fieldId + "-error");
   if (!errorEl) {
     errorEl = document.createElement("span");
     errorEl.id = fieldId + "-error";
@@ -207,10 +207,10 @@ function showError(fieldId, message) {
  * Removes the error message and invalid styling from a field.
  */
 function clearError(fieldId) {
-  const field = document.getElementById(fieldId);
+  var field = document.getElementById(fieldId);
   if (!field) return;
 
-  const errorEl = document.getElementById(fieldId + "-error");
+  var errorEl = document.getElementById(fieldId + "-error");
   if (errorEl) errorEl.textContent = "";
 
   field.classList.remove("input-invalid");
@@ -223,9 +223,9 @@ function clearError(fieldId) {
  * Returns true if valid, false otherwise.
  */
 function validateName() {
-  const field = document.getElementById("name");
+  var field = document.getElementById("name");
   if (!field) return true;
-  const value = field.value.trim();
+  var value = field.value.trim();
 
   if (value.length < validationRules.name.minLength) {
     showError("name", validationRules.name.errorMsg);
@@ -242,9 +242,9 @@ function validateName() {
  * Returns true if valid, false otherwise.
  */
 function validateEmail() {
-  const field = document.getElementById("email");
+  var field = document.getElementById("email");
   if (!field) return true;
-  const value = field.value.trim();
+  var value = field.value.trim();
 
   if (!validationRules.email.pattern.test(value)) {
     showError("email", validationRules.email.errorMsg);
@@ -261,19 +261,19 @@ function validateEmail() {
  * Returns true if valid, false otherwise.
  */
 function validatePickupDate() {
-  const field = document.getElementById("pickup-date");
-  const requestTypeField = document.getElementById("request-type");
+  var field            = document.getElementById("pickup-date");
+  var requestTypeField = document.getElementById("request-type");
   if (!field) return true;
 
-  const selectedDate = new Date(field.value);
-  const today = new Date();
+  var selectedDate = new Date(field.value);
+  var today        = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const minHours = (requestTypeField && requestTypeField.value === "pre-order-cake") ? 48 : 24;
-  const minDate = new Date(today.getTime() + minHours * 60 * 60 * 1000);
+  var minHours = (requestTypeField && requestTypeField.value === "pre-order-cake") ? 48 : 24;
+  var minDate  = new Date(today.getTime() + minHours * 60 * 60 * 1000);
 
   if (!field.value || selectedDate < minDate) {
-    const msg = minHours === 48
+    var msg = minHours === 48
       ? "Custom cake orders require at least 48 hours advance notice."
       : validationRules.pickupDate.errorMsg;
     showError("pickup-date", msg);
@@ -289,7 +289,7 @@ function validatePickupDate() {
  * the dropdown. Returns true if valid, false otherwise.
  */
 function validateRequestType() {
-  const field = document.getElementById("request-type");
+  var field = document.getElementById("request-type");
   if (!field) return true;
 
   if (!field.value) {
@@ -307,9 +307,9 @@ function validateRequestType() {
  * Returns true if valid, false otherwise.
  */
 function validateItemDetails() {
-  const field = document.getElementById("item-details");
+  var field = document.getElementById("item-details");
   if (!field) return true;
-  const value = field.value.trim();
+  var value = field.value.trim();
 
   if (value.length < validationRules.itemDetails.minLength) {
     showError("item-details", validationRules.itemDetails.errorMsg);
@@ -325,7 +325,7 @@ function validateItemDetails() {
  * check passes. Focuses the first invalid field.
  */
 function validateForm() {
-  const checks = [
+  var checks = [
     validateName(),
     validateEmail(),
     validatePickupDate(),
@@ -333,10 +333,10 @@ function validateForm() {
     validateItemDetails()
   ];
 
-  const allValid = checks.every(function (result) { return result === true; });
+  var allValid = checks.every(function (result) { return result === true; });
 
   if (!allValid) {
-    const firstInvalid = document.querySelector(".input-invalid");
+    var firstInvalid = document.querySelector(".input-invalid");
     if (firstInvalid) firstInvalid.focus();
   }
 
@@ -353,7 +353,7 @@ function validateForm() {
  * can be pre-filled on the next visit.
  */
 function saveContactName() {
-  const nameField = document.getElementById("name");
+  var nameField = document.getElementById("name");
   if (nameField && nameField.value.trim().length > 0) {
     localStorage.setItem(NAME_KEY, nameField.value.trim());
   }
@@ -365,10 +365,10 @@ function saveContactName() {
  * the name field if a value exists.
  */
 function restoreContactName() {
-  const nameField = document.getElementById("name");
+  var nameField = document.getElementById("name");
   if (!nameField) return;
 
-  const savedName = localStorage.getItem(NAME_KEY);
+  var savedName = localStorage.getItem(NAME_KEY);
   if (savedName) {
     nameField.value = savedName;
   }
@@ -380,27 +380,31 @@ function restoreContactName() {
  * Attaches the submit handler and restores the saved name.
  */
 function initContactForm() {
-  const form = document.querySelector(".contact-form");
+  var form = document.querySelector(".contact-form");
   if (!form) return;
 
   restoreContactName();
 
-  // Live validation: clear errors as the user corrects fields
-  document.getElementById("name")        && document.getElementById("name").addEventListener("input", validateName);
-  document.getElementById("email")       && document.getElementById("email").addEventListener("input", validateEmail);
-  document.getElementById("pickup-date") && document.getElementById("pickup-date").addEventListener("change", validatePickupDate);
-  document.getElementById("request-type")&& document.getElementById("request-type").addEventListener("change", function () {
+  var nameField        = document.getElementById("name");
+  var emailField       = document.getElementById("email");
+  var pickupDateField  = document.getElementById("pickup-date");
+  var requestTypeField = document.getElementById("request-type");
+  var itemDetailsField = document.getElementById("item-details");
+
+  if (nameField)        nameField.addEventListener("input", validateName);
+  if (emailField)       emailField.addEventListener("input", validateEmail);
+  if (pickupDateField)  pickupDateField.addEventListener("change", validatePickupDate);
+  if (requestTypeField) requestTypeField.addEventListener("change", function () {
     validateRequestType();
-    validatePickupDate(); // re-check date when type changes (cake vs other)
+    validatePickupDate();
   });
-  document.getElementById("item-details")&& document.getElementById("item-details").addEventListener("input", validateItemDetails);
+  if (itemDetailsField) itemDetailsField.addEventListener("input", validateItemDetails);
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if (validateForm()) {
       saveContactName();
-      // Show a success confirmation message
       showSuccessMessage();
     }
   });
@@ -412,7 +416,7 @@ function initContactForm() {
  * after a valid submission.
  */
 function showSuccessMessage() {
-  const formSection = document.querySelector(".contact-form-section");
+  var formSection = document.querySelector(".contact-form-section");
   if (!formSection) return;
 
   formSection.innerHTML =
