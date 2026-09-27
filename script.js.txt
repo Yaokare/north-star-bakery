@@ -1,138 +1,118 @@
 /* ============================================================
    North Star Bakery — script.js
-   Touchstone 4 — hardened version with debug logging
+   Complete rewrite with simplified favorites logic
    ============================================================ */
 
 var FAVORITES_KEY = "nsb_favorites";
 var NAME_KEY      = "nsb_contact_name";
 
 var products = [
-  { id: "classic-sourdough",   name: "Classic Sourdough",                category: "Breads"   },
-  { id: "honey-oat-loaf",      name: "Honey Oat Loaf",                   category: "Breads"   },
-  { id: "seeded-rye",          name: "Seeded Rye",                       category: "Breads"   },
-  { id: "rosemary-focaccia",   name: "Rosemary Focaccia",                category: "Breads"   },
-  { id: "butter-croissant",    name: "Butter Croissant",                 category: "Pastries" },
-  { id: "fruit-danish",        name: "Seasonal Fruit Danish",            category: "Pastries" },
-  { id: "morning-bun",         name: "Cinnamon Morning Bun",             category: "Pastries" },
-  { id: "choc-almond",         name: "Chocolate Almond Croissant",       category: "Pastries" },
-  { id: "vanilla-cake",        name: "Classic Vanilla Celebration Cake", category: "Cakes"    },
-  { id: "choc-ganache-cake",   name: "Dark Chocolate Ganache Cake",      category: "Cakes"    },
-  { id: "lemon-drizzle",       name: "Lemon Drizzle Loaf",               category: "Cakes"    },
-  { id: "carrot-cake",         name: "Carrot Cake",                      category: "Cakes"    }
+  { id: "classic-sourdough",  name: "Classic Sourdough",                category: "Breads"   },
+  { id: "honey-oat-loaf",     name: "Honey Oat Loaf",                   category: "Breads"   },
+  { id: "seeded-rye",         name: "Seeded Rye",                       category: "Breads"   },
+  { id: "rosemary-focaccia",  name: "Rosemary Focaccia",                category: "Breads"   },
+  { id: "butter-croissant",   name: "Butter Croissant",                 category: "Pastries" },
+  { id: "fruit-danish",       name: "Seasonal Fruit Danish",            category: "Pastries" },
+  { id: "morning-bun",        name: "Cinnamon Morning Bun",             category: "Pastries" },
+  { id: "choc-almond",        name: "Chocolate Almond Croissant",       category: "Pastries" },
+  { id: "vanilla-cake",       name: "Classic Vanilla Celebration Cake", category: "Cakes"    },
+  { id: "choc-ganache-cake",  name: "Dark Chocolate Ganache Cake",      category: "Cakes"    },
+  { id: "lemon-drizzle",      name: "Lemon Drizzle Loaf",               category: "Cakes"    },
+  { id: "carrot-cake",        name: "Carrot Cake",                      category: "Cakes"    }
 ];
 
 /* ----------------------------------------------------------
-   STORAGE HELPERS
+   LOAD AND SAVE FAVORITES FROM LOCALSTORAGE
    ---------------------------------------------------------- */
 function loadFavorites() {
-  try {
-    var stored = localStorage.getItem(FAVORITES_KEY);
-    var result = stored ? JSON.parse(stored) : [];
-    console.log("[NSB] loadFavorites:", result);
-    return result;
-  } catch (e) {
-    console.error("[NSB] loadFavorites error:", e);
-    return [];
+  var stored = localStorage.getItem(FAVORITES_KEY);
+  if (stored) {
+    return JSON.parse(stored);
   }
+  return [];
 }
 
 function saveFavorites(arr) {
-  try {
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(arr));
-    console.log("[NSB] saveFavorites:", arr);
-  } catch (e) {
-    console.error("[NSB] saveFavorites error:", e);
-  }
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(arr));
 }
 
 /* ----------------------------------------------------------
-   TOGGLE
+   TOGGLE A FAVORITE ON OR OFF
    ---------------------------------------------------------- */
 function toggleFavorite(productId) {
-  console.log("[NSB] toggleFavorite called with:", productId);
   var favorites = loadFavorites();
   var index = favorites.indexOf(productId);
 
   if (index === -1) {
     favorites.push(productId);
-    console.log("[NSB] Added:", productId);
   } else {
     favorites.splice(index, 1);
-    console.log("[NSB] Removed:", productId);
   }
 
   saveFavorites(favorites);
-  updateFavoritesPanel();
-  updateHeartButtons();
+  refreshPanel();
+  refreshButtons();
 }
 
 /* ----------------------------------------------------------
-   UPDATE HEART BUTTONS
+   REFRESH ALL HEART BUTTONS
    ---------------------------------------------------------- */
-function updateHeartButtons() {
+function refreshButtons() {
   var favorites = loadFavorites();
   var buttons = document.querySelectorAll(".fav-btn");
-  console.log("[NSB] updateHeartButtons — buttons found:", buttons.length);
 
-  buttons.forEach(function (btn) {
-    var productId = btn.getAttribute("data-product-id");
-    if (favorites.indexOf(productId) !== -1) {
+  for (var i = 0; i < buttons.length; i++) {
+    var btn = buttons[i];
+    var id = btn.getAttribute("data-id");
+
+    if (favorites.indexOf(id) !== -1) {
       btn.textContent = "♥ Saved";
-      btn.classList.add("fav-btn--active");
-      btn.setAttribute("aria-pressed", "true");
+      btn.style.backgroundColor = "#6B3E26";
+      btn.style.color = "#FFF8F0";
+      btn.style.borderColor = "#6B3E26";
     } else {
       btn.textContent = "♡ Save";
-      btn.classList.remove("fav-btn--active");
-      btn.setAttribute("aria-pressed", "false");
+      btn.style.backgroundColor = "transparent";
+      btn.style.color = "#6B3E26";
+      btn.style.borderColor = "#6B3E26";
     }
-  });
+  }
 }
 
 /* ----------------------------------------------------------
-   UPDATE FAVORITES PANEL
+   REFRESH THE FAVORITES PANEL
    ---------------------------------------------------------- */
-function updateFavoritesPanel() {
+function refreshPanel() {
   var panel = document.getElementById("favorites-panel");
-  if (!panel) {
-    console.log("[NSB] updateFavoritesPanel — panel not found, skipping");
-    return;
-  }
+  if (!panel) return;
 
   var favorites = loadFavorites();
   var list     = document.getElementById("favorites-list");
   var emptyMsg = document.getElementById("favorites-empty");
   var countEl  = document.getElementById("favorites-count");
 
-  if (!list || !emptyMsg || !countEl) {
-    console.error("[NSB] updateFavoritesPanel — missing panel child elements");
-    return;
-  }
-
   list.innerHTML = "";
+  countEl.textContent = favorites.length;
 
   if (favorites.length === 0) {
     emptyMsg.style.display = "block";
-    countEl.textContent = "0";
-    console.log("[NSB] Panel updated — empty state");
     return;
   }
 
   emptyMsg.style.display = "none";
-  countEl.textContent = String(favorites.length);
 
-  favorites.forEach(function (productId) {
+  for (var i = 0; i < favorites.length; i++) {
+    var productId = favorites[i];
     var product = null;
-    for (var i = 0; i < products.length; i++) {
-      if (products[i].id === productId) {
-        product = products[i];
+
+    for (var j = 0; j < products.length; j++) {
+      if (products[j].id === productId) {
+        product = products[j];
         break;
       }
     }
 
-    if (!product) {
-      console.warn("[NSB] No product found for id:", productId);
-      return;
-    }
+    if (!product) continue;
 
     var li = document.createElement("li");
     li.textContent = product.name + " (" + product.category + ")";
@@ -140,43 +120,37 @@ function updateFavoritesPanel() {
     var removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.className = "fav-remove-btn";
-    removeBtn.setAttribute("aria-label", "Remove " + product.name + " from favorites");
 
-    removeBtn.addEventListener("click", function () {
-      toggleFavorite(productId);
-    });
+    (function(id) {
+      removeBtn.onclick = function() {
+        toggleFavorite(id);
+      };
+    })(productId);
 
     li.appendChild(removeBtn);
     list.appendChild(li);
-  });
-
-  console.log("[NSB] Panel updated —", favorites.length, "item(s)");
+  }
 }
 
 /* ----------------------------------------------------------
-   INIT FAVORITES
+   ATTACH CLICK LISTENERS TO ALL SAVE BUTTONS
    ---------------------------------------------------------- */
-function initFavoritesFeature() {
-  var favButtons = document.querySelectorAll(".fav-btn");
-  console.log("[NSB] initFavoritesFeature — buttons found:", favButtons.length);
+function initFavorites() {
+  var buttons = document.querySelectorAll(".fav-btn");
 
-  if (favButtons.length === 0) {
-    console.log("[NSB] No fav buttons on this page, skipping");
-    return;
+  if (buttons.length === 0) return;
+
+  for (var i = 0; i < buttons.length; i++) {
+    (function(btn) {
+      btn.onclick = function() {
+        var id = btn.getAttribute("data-id");
+        toggleFavorite(id);
+      };
+    })(buttons[i]);
   }
 
-  favButtons.forEach(function (btn) {
-    btn.addEventListener("click", function (event) {
-      event.preventDefault();
-      var productId = btn.getAttribute("data-product-id");
-      console.log("[NSB] Button clicked, productId:", productId);
-      toggleFavorite(productId);
-    });
-  });
-
-  updateFavoritesPanel();
-  updateHeartButtons();
-  console.log("[NSB] Favorites feature initialized");
+  refreshPanel();
+  refreshButtons();
 }
 
 /* ----------------------------------------------------------
@@ -205,7 +179,6 @@ function showError(fieldId, message) {
 
   errorEl.textContent = message;
   field.classList.add("input-invalid");
-  field.setAttribute("aria-describedby", fieldId + "-error");
 }
 
 function clearError(fieldId) {
@@ -285,28 +258,18 @@ function validateItemDetails() {
 }
 
 function validateForm() {
-  var results = [
-    validateName(),
-    validateEmail(),
-    validatePickupDate(),
-    validateRequestType(),
-    validateItemDetails()
-  ];
+  var v1 = validateName();
+  var v2 = validateEmail();
+  var v3 = validatePickupDate();
+  var v4 = validateRequestType();
+  var v5 = validateItemDetails();
 
-  var allValid = true;
-  for (var i = 0; i < results.length; i++) {
-    if (results[i] === false) {
-      allValid = false;
-      break;
-    }
-  }
-
-  if (!allValid) {
+  if (!v1 || !v2 || !v3 || !v4 || !v5) {
     var firstInvalid = document.querySelector(".input-invalid");
     if (firstInvalid) firstInvalid.focus();
+    return false;
   }
-
-  return allValid;
+  return true;
 }
 
 function saveContactName() {
@@ -326,7 +289,6 @@ function restoreContactName() {
 function showSuccessMessage() {
   var formSection = document.querySelector(".contact-form-section");
   if (!formSection) return;
-
   formSection.innerHTML =
     "<div class='form-success'>" +
     "<h2>Thank You!</h2>" +
@@ -337,12 +299,8 @@ function showSuccessMessage() {
 
 function initContactForm() {
   var form = document.querySelector(".contact-form");
-  if (!form) {
-    console.log("[NSB] No contact form on this page, skipping");
-    return;
-  }
+  if (!form) return;
 
-  console.log("[NSB] initContactForm — form found");
   restoreContactName();
 
   var nameField        = document.getElementById("name");
@@ -351,32 +309,28 @@ function initContactForm() {
   var requestTypeField = document.getElementById("request-type");
   var itemDetailsField = document.getElementById("item-details");
 
-  if (nameField)        nameField.addEventListener("input", validateName);
-  if (emailField)       emailField.addEventListener("input", validateEmail);
-  if (pickupDateField)  pickupDateField.addEventListener("change", validatePickupDate);
-  if (requestTypeField) requestTypeField.addEventListener("change", function () {
+  if (nameField)        nameField.oninput   = validateName;
+  if (emailField)       emailField.oninput  = validateEmail;
+  if (pickupDateField)  pickupDateField.onchange = validatePickupDate;
+  if (requestTypeField) requestTypeField.onchange = function() {
     validateRequestType();
     validatePickupDate();
-  });
-  if (itemDetailsField) itemDetailsField.addEventListener("input", validateItemDetails);
+  };
+  if (itemDetailsField) itemDetailsField.oninput = validateItemDetails;
 
-  form.addEventListener("submit", function (event) {
+  form.onsubmit = function(event) {
     event.preventDefault();
-    console.log("[NSB] Form submitted");
     if (validateForm()) {
       saveContactName();
       showSuccessMessage();
     }
-  });
-
-  console.log("[NSB] Contact form initialized");
+  };
 }
 
 /* ----------------------------------------------------------
-   INIT
+   START EVERYTHING WHEN PAGE LOADS
    ---------------------------------------------------------- */
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("[NSB] DOMContentLoaded fired");
-  initFavoritesFeature();
+window.onload = function() {
+  initFavorites();
   initContactForm();
-});
+};
