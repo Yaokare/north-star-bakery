@@ -1,0 +1,962 @@
+/* =============================================
+   NORTH STAR BAKERY — STYLESHEET
+   External CSS for all four pages
+   Colors:
+     Cream:    #FFF8F0
+     Brown:    #6B3E26
+     Peach:    #D88C5A
+     Charcoal: #2F2A26
+   Fonts:
+     Playfair Display (headings)
+     Lato (body)
+============================================= */
+
+/* =============================================
+   GOOGLE FONTS IMPORT
+============================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+/* =============================================
+   CSS VARIABLES
+============================================= */
+:root {
+  --color-cream:   #FFF8F0;
+  --color-brown:   #6B3E26;
+  --color-peach:   #D88C5A;
+  --color-charcoal:#2F2A26;
+  --color-white:   #FFFFFF;
+  --color-light:   #F5EDE3;
+
+  --font-heading:  'Playfair Display', serif;
+  --font-body:     'Lato', sans-serif;
+
+  --spacing-sm:    0.5rem;
+  --spacing-md:    1rem;
+  --spacing-lg:    2rem;
+  --spacing-xl:    3rem;
+
+  --radius:        8px;
+  --shadow:        0 2px 8px rgba(0, 0, 0, 0.08);
+  --transition:    all 0.3s ease;
+}
+
+/* =============================================
+   RESET AND BASE STYLES
+============================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-brown);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-peach);
+}
+
+ul {
+  list-style: none;
+}
+
+address {
+  font-style: normal;
+}
+
+/* =============================================
+   TYPOGRAPHY
+============================================= */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--color-brown);
+  line-height: 1.3;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-charcoal);
+}
+
+small {
+  font-size: 0.85rem;
+  color: #6b6560;
+  display: block;
+  margin-top: var(--spacing-sm);
+}
+
+/* =============================================
+   NAVIGATION — MOBILE FIRST
+============================================= */
+nav {
+  background-color: var(--color-brown);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.nav-logo img {
+  height: 50px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.nav-links li a {
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: block;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.nav-links li a:hover {
+  background-color: var(--color-peach);
+  color: var(--color-charcoal);
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.footer-nav a {
+  color: var(--color-cream);
+  font-size: 0.9rem;
+}
+
+.footer-nav a:hover {
+  color: var(--color-peach);
+}
+
+/* =============================================
+   PAGE HEADER
+============================================= */
+.page-header {
+  background-color: var(--color-light);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+  border-bottom: 3px solid var(--color-peach);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--color-charcoal);
+}
+
+/* =============================================
+   HERO SECTION — INDEX PAGE
+============================================= */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.hero-text {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.hero-text h1 {
+  color: var(--color-cream);
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.hero-text p {
+  color: var(--color-cream);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+/* =============================================
+   BUTTON
+============================================= */
+.btn {
+  display: inline-block;
+  background-color: var(--color-peach);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+}
+
+/* =============================================
+   SECTIONS — GENERAL
+============================================= */
+section {
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.section-intro {
+  font-size: 1.05rem;
+  max-width: 700px;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* =============================================
+   KNOWN FOR SECTION — INDEX PAGE
+============================================= */
+.known-for {
+  background-color: var(--color-white);
+  text-align: center;
+}
+
+.known-for h2 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.known-for-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.known-card {
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.known-card h3 {
+  color: var(--color-brown);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   FEATURED SECTION — INDEX PAGE
+============================================= */
+.featured {
+  background-color: var(--color-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.featured h2 {
+  margin-bottom: 0;
+}
+
+.featured-image {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+.featured-text h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   SIGNATURE SECTION
+============================================= */
+.signature,
+.signature-about {
+  background-color: var(--color-white);
+  text-align: center;
+}
+
+figure {
+  margin: var(--spacing-lg) auto;
+  max-width: 700px;
+}
+
+figure img {
+  width: 100%;
+  border-radius: var(--radius);
+  margin-bottom: var(--spacing-sm);
+}
+
+figcaption {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #6b6560;
+  font-style: italic;
+  text-align: center;
+  padding: 0 var(--spacing-md);
+}
+
+/* =============================================
+   HOURS AND LOCATION — INDEX PAGE
+============================================= */
+.hours-location {
+  background-color: var(--color-cream);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.hours ul {
+  list-style: disc;
+  padding-left: var(--spacing-lg);
+}
+
+.hours ul li {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-charcoal);
+}
+
+.location address p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-charcoal);
+}
+
+/* =============================================
+   AUDIO AND VIDEO SECTIONS
+============================================= */
+.welcome-audio,
+.video-section {
+  background-color: var(--color-light);
+  text-align: center;
+}
+
+audio,
+video {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--spacing-md) auto 0;
+  display: block;
+  border-radius: var(--radius);
+}
+
+.video-wrapper {
+  margin-top: var(--spacing-md);
+}
+
+/* =============================================
+   CALL TO ACTION SECTION
+============================================= */
+.cta {
+  background-color: var(--color-brown);
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.cta h2 {
+  color: var(--color-cream);
+  margin-bottom: var(--spacing-md);
+}
+
+.cta p {
+  color: var(--color-cream);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+/* =============================================
+   PRODUCT CARDS — PRODUCTS PAGE
+============================================= */
+.product-category {
+  background-color: var(--color-white);
+}
+
+.product-category:nth-child(even) {
+  background-color: var(--color-light);
+}
+
+.product-category h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.category-intro {
+  margin-bottom: var(--spacing-lg);
+  max-width: 700px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.card {
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: var(--spacing-md);
+}
+
+.card-body h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.price {
+  font-weight: 700;
+  color: var(--color-peach);
+  font-size: 1rem;
+  margin-top: var(--spacing-sm);
+  margin-bottom: 0;
+}
+
+/* =============================================
+   STORY SECTION — ABOUT PAGE
+============================================= */
+.story {
+  background-color: var(--color-white);
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.story-text h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* =============================================
+   SOURCING SECTION — ABOUT PAGE
+============================================= */
+.sourcing {
+  background-color: var(--color-light);
+}
+
+.sourcing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.sourcing-card {
+  background-color: var(--color-cream);
+  border-left: 4px solid var(--color-peach);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.sourcing-card h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   STAFF SECTION — ABOUT PAGE
+============================================= */
+.staff {
+  background-color: var(--color-white);
+}
+
+.staff-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.staff-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.staff-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.staff-info {
+  padding: var(--spacing-md);
+}
+
+.staff-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-peach);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* =============================================
+   ABOUT FEATURED SECTION — ABOUT PAGE
+============================================= */
+.about-featured {
+  background-color: var(--color-light);
+  text-align: center;
+}
+
+.about-featured p {
+  margin-top: var(--spacing-md);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =============================================
+   CONTACT PAGE LAYOUT
+============================================= */
+.contact-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   CONTACT FORM — CONTACT PAGE
+============================================= */
+.contact-form-section {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.contact-form-section h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.contact-form-section p {
+  margin-bottom: var(--spacing-lg);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-brown);
+  font-size: 0.95rem;
+}
+
+.required {
+  color: var(--color-peach);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  padding: 0.65rem var(--spacing-md);
+  border: 1px solid #c9b8a8;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  transition: var(--transition);
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-peach);
+  box-shadow: 0 0 0 3px rgba(216, 140, 90, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* =============================================
+   CONTACT INFO SIDEBAR — CONTACT PAGE
+============================================= */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.info-block {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.info-block h2 {
+  margin-bottom: var(--spacing-md);
+  font-size: 1.4rem;
+}
+
+.info-block address p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.info-block address a {
+  color: var(--color-brown);
+  font-weight: 700;
+}
+
+.info-block address a:hover {
+  color: var(--color-peach);
+}
+
+/* =============================================
+   HOURS TABLE — CONTACT PAGE
+============================================= */
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.hours-table td {
+  padding: 0.5rem var(--spacing-sm);
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-charcoal);
+}
+
+.hours-table td:first-child {
+  font-weight: 700;
+  color: var(--color-brown);
+  width: 45%;
+}
+
+.hours-note {
+  font-size: 0.85rem;
+  color: #6b6560;
+  margin-top: var(--spacing-md);
+  font-style: italic;
+}
+
+/* =============================================
+   ORDER NOTES — CONTACT PAGE
+============================================= */
+.info-block ul {
+  list-style: disc;
+  padding-left: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.info-block ul li {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-charcoal);
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+footer p {
+  color: var(--color-cream);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   MEDIA QUERIES — TABLET 768px+
+============================================= */
+@media (min-width: 768px) {
+
+  /* Navigation */
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+
+  .nav-links {
+    flex-direction: row;
+    width: auto;
+    gap: var(--spacing-sm);
+  }
+
+  .footer-nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-lg);
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 420px;
+  }
+
+  .hero-image {
+    width: 55%;
+    max-height: none;
+    object-fit: cover;
+  }
+
+  .hero-text {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding: var(--spacing-xl);
+  }
+
+  .hero-text p {
+    margin: 0 0 var(--spacing-lg);
+  }
+
+  /* Known For Grid */
+  .known-for-grid {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .known-card {
+    flex: 1 1 calc(33% - 1rem);
+  }
+
+  /* Featured Section */
+  .featured {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xl);
+  }
+
+  .featured picture,
+  .featured-text {
+    flex: 1;
+  }
+
+  /* Hours and Location */
+  .hours-location {
+    flex-direction: row;
+    gap: var(--spacing-xl);
+  }
+
+  .hours,
+  .location {
+    flex: 1;
+  }
+
+  /* Product Cards */
+  .card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    flex: 1 1 calc(50% - 1rem);
+  }
+
+  /* Story Section */
+  .story-content {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-xl);
+  }
+
+  .story-text {
+    flex: 1;
+  }
+
+  .story-image {
+    flex: 1;
+  }
+
+  /* Sourcing Grid */
+  .sourcing-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sourcing-card {
+    flex: 1 1 calc(50% - 1rem);
+  }
+
+  /* Staff Grid */
+  .staff-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .staff-card {
+    flex: 1 1 calc(50% - 1rem);
+  }
+
+  /* Contact Layout */
+  .contact-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .contact-form-section {
+    flex: 2;
+  }
+
+  .contact-info {
+    flex: 1;
+  }
+
+}
+
+/* =============================================
+   MEDIA QUERIES — DESKTOP 1024px+
+============================================= */
+@media (min-width: 1024px) {
+
+  /* Product Cards — Three Columns */
+  .card {
+    flex: 1 1 calc(33% - 1rem);
+  }
+
+  /* Staff Cards — Four Columns */
+  .staff-card {
+    flex: 1 1 calc(25% - 1rem);
+  }
+
+  /* Sourcing Cards — Four Columns */
+  .sourcing-card {
+    flex: 1 1 calc(25% - 1rem);
+  }
+
+  /* Known For — Already Three Columns at 768px */
+  .known-card {
+    flex: 1 1 calc(33% - 1rem);
+  }
+
+  /* Page Header */
+  .page-header {
+    padding: var(--spacing-xl) var(--spacing-xl);
+  }
+
+  /* Hero Text */
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+}

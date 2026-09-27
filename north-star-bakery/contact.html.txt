@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Star Bakery - Contact</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-logo">
+        <img src="bakery-logo.png" alt="North Star Bakery logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Contact Us</h1>
+      <p>
+        Have a question, want to place a pre-order, or planning
+        a special event? We would love to hear from you. Fill
+        out the form below and we will get back to you within
+        one business day.
+      </p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+      <!-- Contact Layout Wrapper -->
+      <div class="contact-wrapper">
+
+        <!-- Pre-Order and Inquiry Form -->
+        <section class="contact-form-section">
+          <h2>Pre-Order and Inquiry Form</h2>
+          <p>
+            Use this form to submit a pre-order request or send
+            us a general question. All custom cake orders require
+            at least 48 hours advance notice.
+          </p>
+
+          <form action="#" method="post" class="contact-form">
+
+            <!-- Name -->
+            <div class="form-group">
+              <label for="name">Full Name <span class="required">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+              />
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number (optional)"
+              />
+            </div>
+
+            <!-- Pickup Date -->
+            <div class="form-group">
+              <label for="pickup-date">
+                Requested Pickup Date <span class="required">*</span>
+              </label>
+              <input
+                type="date"
+                id="pickup-date"
+                name="pickup-date"
+                required
+              />
+              <small>
+                Please allow at least 48 hours for custom cake
+                orders and 24 hours for all other pre-orders.
+              </small>
+            </div>
+
+            <!-- Request Type -->
+            <div class="form-group">
+              <label for="request-type">
+                Request Type <span class="required">*</span>
+              </label>
+              <select id="request-type" name="request-type" required>
+                <option value="" disabled selected>
+                  Select a request type
+                </option>
+                <option value="pre-order-bread">
+                  Pre-Order: Bread
+                </option>
+                <option value="pre-order-pastry">
+                  Pre-Order: Pastries
+                </option>
+                <option value="pre-order-cake">
+                  Pre-Order: Custom Cake
+                </option>
+                <option value="pre-order-event">
+                  Pre-Order: Event or Catering
+                </option>
+                <option value="general-question">
+                  General Question
+                </option>
+                <option value="other">
+                  Other
+                </option>
+              </select>
+            </div>
+
+            <!-- Item Details -->
+            <div class="form-group">
+              <label for="item-details">
+                Item Details <span class="required">*</span>
+              </label>
+              <textarea
+                id="item-details"
+                name="item-details"
+                rows="5"
+                placeholder="Please describe what you would like to order
+or ask. For custom cakes, include size, flavor,
+frosting preference, and any decoration ideas."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Allergy Notes -->
+            <div class="form-group">
+              <label for="allergy-notes">
+                Allergy Notes or Dietary Requirements
+              </label>
+              <textarea
+                id="allergy-notes"
+                name="allergy-notes"
+                rows="3"
+                placeholder="Please list any allergies or dietary
+requirements we should know about (optional)."
+              ></textarea>
+              <small>
+                We will do our best to accommodate your needs.
+                Please note that our kitchen handles gluten,
+                dairy, eggs, tree nuts, and soy.
+              </small>
+            </div>
+
+            <!-- How Did You Hear About Us -->
+            <div class="form-group">
+              <label for="referral">
+                How Did You Hear About Us?
+              </label>
+              <select id="referral" name="referral">
+                <option value="" disabled selected>
+                  Select an option
+                </option>
+                <option value="word-of-mouth">
+                  Word of Mouth
+                </option>
+                <option value="social-media">
+                  Social Media
+                </option>
+                <option value="farmers-market">
+                  Farmers Market
+                </option>
+                <option value="local-search">
+                  Online Search
+                </option>
+                <option value="returning-customer">
+                  Returning Customer
+                </option>
+                <option value="other">
+                  Other
+                </option>
+              </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+              <button type="submit" class="btn">
+                Submit Request
+              </button>
+            </div>
+
+          </form>
+        </section>
+
+        <!-- Location and Hours Sidebar -->
+        <aside class="contact-info">
+
+          <!-- Location -->
+          <div class="info-block">
+            <h2>Find Us</h2>
+            <figure>
+              <img
+                src="bakery-storefront.jpg"
+                alt="The front entrance of North Star Bakery on
+                Maple Street on a bright morning"
+              />
+              <figcaption>
+                142 Maple Street, Minneapolis — open seven
+                days a week with fresh bread every morning.
+              </figcaption>
+            </figure>
+            <address>
+              <p>142 Maple Street</p>
+              <p>Minneapolis, MN 55401</p>
+              <p>
+                <a href="tel:+16125550198">(612) 555-0198</a>
+              </p>
+              <p>
+                <a href="mailto:hello@northstarbakery.com">
+                  hello@northstarbakery.com
+                </a>
+              </p>
+            </address>
+          </div>
+
+          <!-- Hours of Operation -->
+          <div class="info-block">
+            <h2>Hours of Operation</h2>
+            <table class="hours-table">
+              <tbody>
+                <tr>
+                  <td>Monday</td>
+                  <td>7:00 AM – 6:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Tuesday</td>
+                  <td>7:00 AM – 6:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Wednesday</td>
+                  <td>7:00 AM – 6:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Thursday</td>
+                  <td>7:00 AM – 6:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Friday</td>
+                  <td>7:00 AM – 6:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Saturday</td>
+                  <td>7:00 AM – 4:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Sunday</td>
+                  <td>8:00 AM – 2:00 PM</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="hours-note">
+              Holiday hours may vary. Follow us on social media
+              for updates on closures and special hours.
+            </p>
+          </div>
+
+          <!-- Order Notes -->
+          <div class="info-block">
+            <h2>Order Notes</h2>
+            <p>
+              Pre-orders are available for pickup only. We do
+              not currently offer delivery. Please allow the
+              following lead times when placing your order:
+            </p>
+            <ul>
+              <li>Breads and pastries: 24 hours notice</li>
+              <li>Custom cakes: 48 hours minimum notice</li>
+              <li>
+                Event and catering orders: 5 to 7 days notice
+              </li>
+            </ul>
+            <p>
+              We will confirm your order by email within one
+              business day of receiving your request.
+            </p>
+          </div>
+
+          <!-- Responsive Featured Image -->
+          <div class="info-block">
+            <picture>
+              <source
+                media="(min-width: 768px)"
+                srcset="bakery-feature-large.jpg"
+              />
+              <img
+                src="bakery-feature-small.jpg"
+                alt="A warm and inviting display of fresh baked
+                goods at North Star Bakery"
+                class="featured-image"
+              />
+            </picture>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2026 North Star Bakery &mdash; 142 Maple Street,
+        Minneapolis, MN &mdash; Made with love and local ingredients.
+      </p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </footer>
+
+  </body>
+</html>

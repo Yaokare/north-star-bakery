@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Star Bakery - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-logo">
+        <img src="bakery-logo.png" alt="North Star Bakery logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero / Welcome Section -->
+    <header class="hero">
+      <img
+        src="bakery-storefront.jpg"
+        alt="The front of North Star Bakery with a warm inviting entrance"
+        class="hero-image"
+      />
+      <div class="hero-text">
+        <h1>Welcome to North Star Bakery</h1>
+        <p>
+          Handcrafted breads, pastries, and cakes made fresh every morning
+          for our neighborhood and beyond. We bake with love, local
+          ingredients, and a whole lot of butter.
+        </p>
+        <a href="contact.html" class="btn">Place a Pre-Order</a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+      <!-- What We Are Known For -->
+      <section class="known-for">
+        <h2>What We Are Known For</h2>
+        <div class="known-for-grid">
+
+          <div class="known-card">
+            <h3>Artisan Breads</h3>
+            <p>
+              From sourdough to seeded rye, our breads are slow-fermented
+              and stone-baked for a crust you can hear and a crumb you
+              will love.
+            </p>
+          </div>
+
+          <div class="known-card">
+            <h3>Seasonal Pastries</h3>
+            <p>
+              Buttery croissants, fruit danishes, and rotating seasonal
+              specials made with locally sourced produce whenever possible.
+            </p>
+          </div>
+
+          <div class="known-card">
+            <h3>Custom Cakes</h3>
+            <p>
+              Birthdays, weddings, and everything in between. Our custom
+              cakes are made to order and designed to impress.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Featured Item of the Week -->
+      <section class="featured">
+        <h2>Featured Item of the Week</h2>
+
+        <!-- Responsive Image using picture element -->
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="bakery-feature-large.jpg"
+          />
+          <img
+            src="bakery-feature-small.jpg"
+            alt="This week's featured item, a golden honey oat loaf fresh from the oven"
+            class="featured-image"
+          />
+        </picture>
+
+        <div class="featured-text">
+          <h3>Honey Oat Loaf</h3>
+          <p>
+            This week we are spotlighting our beloved Honey Oat Loaf.
+            Made with local wildflower honey and rolled oats, this loaf
+            is soft, slightly sweet, and perfect for toast or sandwiches.
+            Available while supplies last.
+          </p>
+          <a href="contact.html" class="btn">Pre-Order This Item</a>
+        </div>
+      </section>
+
+      <!-- Signature Loaf Figure -->
+      <section class="signature">
+        <h2>Our Signature Loaf</h2>
+        <figure>
+          <img
+            src="bakery-signature-loaf.jpg"
+            alt="A close up of North Star Bakery's signature sourdough loaf with a scored crust"
+          />
+          <figcaption>
+            Our signature sourdough — slow-fermented for 24 hours and
+            baked in a cast iron Dutch oven for the perfect crust.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Hours and Location -->
+      <section class="hours-location">
+        <div class="hours">
+          <h2>Hours</h2>
+          <ul>
+            <li>Monday – Friday: 7:00 AM – 6:00 PM</li>
+            <li>Saturday: 7:00 AM – 4:00 PM</li>
+            <li>Sunday: 8:00 AM – 2:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="location">
+          <h2>Location</h2>
+          <address>
+            142 Maple Street<br />
+            Minneapolis, MN 55401<br />
+            Phone: (612) 555-0198<br />
+            Email: hello@northstarbakery.com
+          </address>
+        </div>
+      </section>
+
+      <!-- Audio Welcome Message -->
+      <section class="welcome-audio">
+        <h2>A Message From Our Baker</h2>
+        <p>Press play to hear a welcome message from our head baker.</p>
+        <audio controls>
+          <source src="bakery-welcome.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element. Please visit
+          us in store or contact us at hello@northstarbakery.com to
+          learn more about North Star Bakery.
+        </audio>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2026 North Star Bakery &mdash; 142 Maple Street,
+        Minneapolis, MN &mdash; Made with love and local ingredients.
+      </p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </footer>
+
+  </body>
+</html>

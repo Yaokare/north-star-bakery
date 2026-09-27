@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Star Bakery - About</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-logo">
+        <img src="bakery-logo.png" alt="North Star Bakery logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>About North Star Bakery</h1>
+      <p>
+        We are a neighborhood bakery rooted in community, craft,
+        and the belief that good bread brings people together.
+        Here is our story.
+      </p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+      <!-- Bakery Story Section -->
+      <section class="story">
+        <div class="story-content">
+          <div class="story-text">
+            <h2>Our Story</h2>
+            <p>
+              North Star Bakery was founded in 2011 by lifelong
+              Minneapolis residents Clara and James Okafor. What
+              started as a weekend farmers market booth quickly
+              grew into a beloved neighborhood fixture on Maple
+              Street, where the smell of fresh bread has greeted
+              the community every morning for over a decade.
+            </p>
+            <p>
+              Clara learned to bake from her grandmother in rural
+              Minnesota, where bread was made by hand every week
+              without fail. James brought his background in
+              hospitality and a deep love of feeding people well.
+              Together they built a bakery that feels less like
+              a business and more like a gathering place.
+            </p>
+            <p>
+              Today North Star Bakery serves hundreds of neighbors,
+              commuters, families, and event planners every week.
+              We still mix our doughs by hand, still use the same
+              sourdough starter Clara has kept alive since 2009,
+              and still believe that the best ingredient in any
+              loaf is time.
+            </p>
+          </div>
+          <div class="story-image">
+            <img
+              src="bakery-storefront.jpg"
+              alt="The exterior of North Star Bakery on a sunny morning
+              with customers visible through the window"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Sourcing Philosophy Section -->
+      <section class="sourcing">
+        <h2>How We Source Our Ingredients</h2>
+        <p class="section-intro">
+          We believe great baking starts long before the oven.
+          Our sourcing philosophy is simple: use the best
+          ingredients we can find, as close to home as possible.
+        </p>
+
+        <div class="sourcing-grid">
+
+          <div class="sourcing-card">
+            <h3>Local Grains</h3>
+            <p>
+              We source our wheat and rye flours from Sunrise
+              Mills in central Minnesota, a family-owned mill
+              that has been stone-grinding grain for three
+              generations. Their flour gives our breads a depth
+              of flavor you simply cannot get from commodity flour.
+            </p>
+          </div>
+
+          <div class="sourcing-card">
+            <h3>Regional Dairy</h3>
+            <p>
+              Our butter, cream, and eggs come from Clover Creek
+              Farm just outside of St. Paul. Their pasture-raised
+              hens and grass-fed cows produce dairy with a richness
+              that makes a noticeable difference in every croissant
+              and cake we bake.
+            </p>
+          </div>
+
+          <div class="sourcing-card">
+            <h3>Seasonal Produce</h3>
+            <p>
+              From late spring through early fall we source fresh
+              fruit directly from vendors at the Minneapolis
+              Farmers Market. Our seasonal pastry flavors change
+              weekly based on what looks best at the market
+              that morning.
+            </p>
+          </div>
+
+          <div class="sourcing-card">
+            <h3>Local Honey</h3>
+            <p>
+              The wildflower honey in our Honey Oat Loaf and
+              several of our seasonal pastries comes from
+              Northwoods Apiaries, a small beekeeping operation
+              based in Stillwater, Minnesota. Their honey has
+              a floral complexity that we love.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Signature Loaf Figure -->
+      <section class="signature-about">
+        <figure>
+          <img
+            src="bakery-signature-loaf.jpg"
+            alt="A close up of North Star Bakery's signature sourdough
+            loaf resting on a linen cloth after baking"
+          />
+          <figcaption>
+            Our signature sourdough starter has been alive and
+            active since 2009. Every loaf we bake carries a
+            little piece of that history.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Staff Highlights Section -->
+      <section class="staff">
+        <h2>Meet the Team</h2>
+        <p class="section-intro">
+          North Star Bakery is powered by a small, dedicated team
+          who show up before dawn every day because they genuinely
+          love what they do.
+        </p>
+
+        <div class="staff-grid">
+
+          <div class="staff-card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="Clara Okafor, head baker and co-founder of
+              North Star Bakery, smiling in the kitchen"
+            />
+            <div class="staff-info">
+              <h3>Clara Okafor</h3>
+              <p class="staff-title">Head Baker and Co-Founder</p>
+              <p>
+                Clara oversees all bread production and recipe
+                development. She has been baking professionally
+                for over 20 years and still gets excited about
+                a perfectly proofed loaf. Her sourdough is the
+                heart of everything we do.
+              </p>
+            </div>
+          </div>
+
+          <div class="staff-card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="James Okafor, co-founder of North Star Bakery,
+              standing at the front counter"
+            />
+            <div class="staff-info">
+              <h3>James Okafor</h3>
+              <p class="staff-title">Co-Founder and Operations</p>
+              <p>
+                James manages the day-to-day operations of the
+                bakery, from supplier relationships to customer
+                experience. His background in hospitality means
+                every visit to North Star feels warm and personal.
+              </p>
+            </div>
+          </div>
+
+          <div class="staff-card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="Maya Torres, pastry chef at North Star Bakery,
+              decorating a celebration cake"
+            />
+            <div class="staff-info">
+              <h3>Maya Torres</h3>
+              <p class="staff-title">Pastry Chef</p>
+              <p>
+                Maya joined the team in 2018 and brought her
+                classical pastry training and love of seasonal
+                flavors with her. She leads all pastry and cake
+                production and is the creative force behind our
+                rotating seasonal specials.
+              </p>
+            </div>
+          </div>
+
+          <div class="staff-card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="Theo Brennan, baker at North Star Bakery,
+              shaping dough at the workbench"
+            />
+            <div class="staff-info">
+              <h3>Theo Brennan</h3>
+              <p class="staff-title">Baker</p>
+              <p>
+                Theo has been with North Star since 2020 and
+                handles our focaccia, rye, and specialty loaf
+                production. He is also the person most likely
+                to be found experimenting with new grain blends
+                on his days off.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Responsive Featured Image -->
+      <section class="about-featured">
+        <h2>Come Find Us</h2>
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="bakery-feature-large.jpg"
+          />
+          <img
+            src="bakery-feature-small.jpg"
+            alt="The inside of North Star Bakery showing wooden
+            tables, warm lighting, and fresh bread on display"
+            class="featured-image"
+          />
+        </picture>
+        <p>
+          We are located at 142 Maple Street in Minneapolis.
+          Stop in any morning and we will have something
+          fresh and warm waiting for you.
+        </p>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="cta">
+        <h2>Want to Know More?</h2>
+        <p>
+          We love hearing from our community. Whether you have
+          a question about ingredients, want to place a custom
+          cake order, or just want to say hello, we would love
+          to hear from you.
+        </p>
+        <a href="contact.html" class="btn">Get in Touch</a>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2026 North Star Bakery &mdash; 142 Maple Street,
+        Minneapolis, MN &mdash; Made with love and local ingredients.
+      </p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </footer>
+
+  </body>
+</html>
