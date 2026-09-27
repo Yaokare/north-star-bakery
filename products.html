@@ -34,6 +34,41 @@
     <!-- Main Content -->
     <main>
 
+      <!-- =============================================
+           T4 NEW: FAVORITES PANEL
+           Displays saved items restored from localStorage.
+           Rebuilt dynamically by updateFavoritesPanel()
+           in script.js each time the user saves or removes
+           a product.
+      ============================================= -->
+      <section
+        class="favorites-panel"
+        id="favorites-panel"
+        aria-label="Your saved favorites"
+      >
+        <h2>
+          Your Saved Favorites
+          <span
+            class="favorites-badge"
+            id="favorites-count"
+            aria-label="Number of saved favorites"
+          >0</span>
+        </h2>
+
+        <p id="favorites-empty" class="favorites-empty">
+          You have not saved any favorites yet. Click the
+          &#9825; Save button on any product below to save it here.
+        </p>
+
+        <ul id="favorites-list" class="favorites-list"></ul>
+
+        <p class="favorites-hint">
+          Your favorites are remembered even after you close
+          the page. Ready to order?
+          <a href="contact.html">Submit a pre-order request &rarr;</a>
+        </p>
+      </section>
+
       <!-- Breads Section -->
       <section class="product-category">
         <h2>Breads</h2>
@@ -44,7 +79,8 @@
 
         <div class="card-container">
 
-          <div class="card">
+          <!-- T4: data-product-id added to .card; fav-btn added to .card-body -->
+          <div class="card" data-product-id="classic-sourdough">
             <img
               src="bakery-bread.jpg"
               alt="A freshly baked sourdough loaf with a golden scored crust"
@@ -57,10 +93,16 @@
                 for sandwiches, toast, or eating plain with butter.
               </p>
               <p class="price">$9.00 – $12.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="classic-sourdough"
+                aria-pressed="false"
+                aria-label="Save Classic Sourdough to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="honey-oat-loaf">
             <img
               src="bakery-bread.jpg"
               alt="A sliced honey oat loaf showing a soft golden interior"
@@ -73,10 +115,16 @@
                 or a simple sandwich.
               </p>
               <p class="price">$8.00 – $10.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="honey-oat-loaf"
+                aria-pressed="false"
+                aria-label="Save Honey Oat Loaf to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="seeded-rye">
             <img
               src="bakery-bread.jpg"
               alt="A dark seeded rye loaf on a wooden cutting board"
@@ -89,10 +137,16 @@
                 flavor and great with smoked salmon or sharp cheese.
               </p>
               <p class="price">$9.00 – $11.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="seeded-rye"
+                aria-pressed="false"
+                aria-label="Save Seeded Rye to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="rosemary-focaccia">
             <img
               src="bakery-bread.jpg"
               alt="A round rosemary focaccia topped with olive oil and sea salt"
@@ -105,6 +159,12 @@
                 sea salt. Available by the sheet or half sheet.
               </p>
               <p class="price">$7.00 – $14.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="rosemary-focaccia"
+                aria-pressed="false"
+                aria-label="Save Rosemary Focaccia to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
@@ -122,7 +182,7 @@
 
         <div class="card-container">
 
-          <div class="card">
+          <div class="card" data-product-id="butter-croissant">
             <img
               src="bakery-storefront.jpg"
               alt="A golden butter croissant on a white plate"
@@ -135,10 +195,16 @@
                 soft and layered on the inside.
               </p>
               <p class="price">$3.50 – $4.50</p>
+              <button
+                class="fav-btn"
+                data-product-id="butter-croissant"
+                aria-pressed="false"
+                aria-label="Save Butter Croissant to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="fruit-danish">
             <img
               src="bakery-storefront.jpg"
               alt="A fruit danish with raspberry filling and a glaze drizzle"
@@ -151,10 +217,16 @@
                 flavor we are featuring this week.
               </p>
               <p class="price">$4.00 – $5.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="fruit-danish"
+                aria-pressed="false"
+                aria-label="Save Seasonal Fruit Danish to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="morning-bun">
             <img
               src="bakery-storefront.jpg"
               alt="A cinnamon morning bun dusted with sugar on a tray"
@@ -167,10 +239,16 @@
                 with powdered sugar. A customer favorite.
               </p>
               <p class="price">$4.00 – $5.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="morning-bun"
+                aria-pressed="false"
+                aria-label="Save Cinnamon Morning Bun to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="choc-almond">
             <img
               src="bakery-storefront.jpg"
               alt="A chocolate almond croissant with sliced almonds on top"
@@ -183,6 +261,12 @@
                 and a dusting of powdered sugar.
               </p>
               <p class="price">$5.00 – $6.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="choc-almond"
+                aria-pressed="false"
+                aria-label="Save Chocolate Almond Croissant to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
@@ -200,7 +284,7 @@
 
         <div class="card-container">
 
-          <div class="card">
+          <div class="card" data-product-id="vanilla-cake">
             <img
               src="bakery-signature-loaf.jpg"
               alt="A three layer vanilla celebration cake with white buttercream frosting"
@@ -213,10 +297,16 @@
                 customized with flavors, colors, and decorations.
               </p>
               <p class="price">$45.00 – $85.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="vanilla-cake"
+                aria-pressed="false"
+                aria-label="Save Classic Vanilla Celebration Cake to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="choc-ganache-cake">
             <img
               src="bakery-signature-loaf.jpg"
               alt="A rich dark chocolate layer cake with ganache drip"
@@ -229,10 +319,16 @@
                 A showstopper for any occasion.
               </p>
               <p class="price">$50.00 – $90.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="choc-ganache-cake"
+                aria-pressed="false"
+                aria-label="Save Dark Chocolate Ganache Cake to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="lemon-drizzle">
             <img
               src="bakery-signature-loaf.jpg"
               alt="A lemon drizzle loaf cake with white glaze on a wooden board"
@@ -245,10 +341,16 @@
                 Great for afternoon tea or as a gift.
               </p>
               <p class="price">$18.00 – $24.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="lemon-drizzle"
+                aria-pressed="false"
+                aria-label="Save Lemon Drizzle Loaf to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card" data-product-id="carrot-cake">
             <img
               src="bakery-signature-loaf.jpg"
               alt="A seasonal carrot cake with cream cheese frosting and walnut topping"
@@ -261,6 +363,12 @@
                 as a full cake or individual slices.
               </p>
               <p class="price">$40.00 – $75.00</p>
+              <button
+                class="fav-btn"
+                data-product-id="carrot-cake"
+                aria-pressed="false"
+                aria-label="Save Carrot Cake to favorites"
+              >&#9825; Save</button>
             </div>
           </div>
 
@@ -310,6 +418,9 @@
         <a href="contact.html">Contact</a>
       </nav>
     </footer>
+
+    <!-- T4 NEW: JavaScript -->
+    <script src="script.js"></script>
 
   </body>
 </html>
