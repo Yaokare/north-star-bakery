@@ -1,37 +1,29 @@
-// Products data object
-// Added honey-oat to match the HTML; removed blueberry-scone (not in HTML)
-const products = {
-  "sourdough":     { name: "Classic Sourdough",      price: "$9.00 – $12.00" },
-  "honey-oat":     { name: "Honey Oat Loaf",          price: "$8.00 – $10.00" },
-  "cinnamon-bun":  { name: "Cinnamon Morning Bun",    price: "$4.00 – $5.00"  }
-};
-
 // Favorites array
 let favorites = [];
 
 // Toggle favorite on or off
 function toggleFavorite(productId) {
-  // Trim whitespace to fix the "honey-oat " typo in the HTML onclick attribute
   productId = productId.trim();
 
   const btn = document.querySelector(`[data-product-id="${productId}"]`);
-
-  // Guard: if the product is not in the catalogue, do nothing
-  if (!products[productId]) {
-    console.warn(`toggleFavorite: unknown productId "${productId}"`);
+  if (!btn) {
+    console.warn(`toggleFavorite: no button found for "${productId}"`);
     return;
   }
 
   const alreadySaved = favorites.some(item => item.id === productId);
 
   if (alreadySaved) {
-    // Remove from favorites
     favorites = favorites.filter(item => item.id !== productId);
-    if (btn) btn.textContent = "☆ Save to Favorites";
+    btn.textContent = "☆ Save to Favorites";
   } else {
-    // Add to favorites
-    favorites.push({ id: productId, ...products[productId] });
-    if (btn) btn.textContent = "♥ Saved!";
+    // Read name and price directly from the card, not a separate data object
+    const card      = btn.closest(".card-body");
+    const name      = card?.querySelector("h3")?.textContent.trim()  ?? productId;
+    const price     = card?.querySelector(".price")?.textContent.trim() ?? "";
+
+    favorites.push({ id: productId, name, price });
+    btn.textContent = "♥ Saved!";
   }
 
   saveFavorites();
@@ -80,9 +72,7 @@ function loadFavorites() {
   try {
     const stored = localStorage.getItem("bakeryFavorites");
     if (stored) {
-      const parsed = JSON.parse(stored);
-      // Only restore items that still exist in the products catalogue
-      favorites = parsed.filter(item => products[item.id]);
+      favorites = JSON.parse(stored);
       renderFavorites();
 
       // Restore heart button states
