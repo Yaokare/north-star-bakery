@@ -1,183 +1,598 @@
-// ============================================================
-// North Star Bakery — Products & Favorites
-// Layout: product rows with inline ♥/☆ toggle, favorites list below
-// ============================================================
-
-const products = {
-  // --- Breads ---
-  "classic-sourdough": {
-    name: "Classic Sourdough",
-    price: "$9.00"
-  },
-  "honey-oat-loaf": {
-    name: "Honey Oat Loaf",
-    price: "$8.00"
-  },
-  "seeded-rye": {
-    name: "Seeded Rye",
-    price: "$9.00"
-  },
-  "rosemary-focaccia": {
-    name: "Rosemary Focaccia",
-    price: "$7.00"
-  },
-
-  // --- Pastries ---
-  "butter-croissant": {
-    name: "Butter Croissant",
-    price: "$3.50"
-  },
-  "seasonal-fruit-danish": {
-    name: "Seasonal Fruit Danish",
-    price: "$4.00"
-  },
-  "cinnamon-morning-bun": {
-    name: "Cinnamon Morning Bun",
-    price: "$4.00"
-  },
-  "chocolate-almond-croissant": {
-    name: "Chocolate Almond Croissant",
-    price: "$5.00"
-  },
-
-  // --- Cakes ---
-  "classic-vanilla-celebration-cake": {
-    name: "Classic Vanilla Celebration Cake",
-    price: "$45.00"
-  },
-  "dark-chocolate-ganache-cake": {
-    name: "Dark Chocolate Ganache Cake",
-    price: "$50.00"
-  },
-  "lemon-drizzle-loaf": {
-    name: "Lemon Drizzle Loaf",
-    price: "$18.00"
-  },
-  "carrot-cake-cream-cheese": {
-    name: "Carrot Cake with Cream Cheese Frosting",
-    price: "$40.00"
-  }
-};
-
-// ============================================================
-// Favorites State
-// ============================================================
-
-let favorites = [];
-
-// ============================================================
-// Toggle ♥ / ☆ on a product row
-// ============================================================
-
-function toggleFavorite(productId) {
-  if (!products[productId]) {
-    console.warn(`Product ID "${productId}" not found.`);
-    return;
-  }
-
-  const btn = document.querySelector(`[data-product-id="${productId}"]`);
-  const alreadySaved = favorites.some(item => item.id === productId);
-
-  if (alreadySaved) {
-    // Remove from favorites
-    favorites = favorites.filter(item => item.id !== productId);
-    if (btn) {
-      btn.textContent = "☆";
-      btn.classList.remove("favorited");
-      btn.setAttribute("aria-label", `Add ${products[productId].name} to favorites`);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>North Star Bakery — Products</title>
+  <style>
+    /* ── Reset & Base ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  } else {
-    // Add to favorites
-    favorites.push({ id: productId, ...products[productId] });
-    if (btn) {
-      btn.textContent = "♥";
-      btn.classList.add("favorited");
-      btn.setAttribute("aria-label", `Remove ${products[productId].name} from favorites`);
+
+    body {
+      font-family: Georgia, serif;
+      background-color: #faf7f2;
+      color: #333;
     }
-  }
 
-  saveFavorites();
-  renderFavorites();
-}
+    /* ── Header ── */
+    header {
+      background-color: #5c3317;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
 
-// ============================================================
-// Save to localStorage
-// ============================================================
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
 
-function saveFavorites() {
-  try {
-    localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
-  } catch (e) {
-    console.error("Could not save favorites:", e);
-  }
-}
+    /* ── Main Container ── */
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
 
-// ============================================================
-// Render the favorites list below the product rows
-//
-// Output matches:
-// ─────────────────────────
-// Your Favorites
-// ─────────────────────────
-// • Sourdough Loaf — $8.00
-// • Cinnamon Morning Bun — $4.50
-// ============================================================
+    /* ── Section Title ── */
+    .section-title {
+      font-size: 1.5rem;
+      color: #5c3317;
+      border-bottom: 2px solid #c8a97e;
+      padding-bottom: 0.4rem;
+      margin: 2rem 0 1rem;
+    }
 
-function renderFavorites() {
-  const list = document.getElementById("favorites-list");
-  if (!list) return;
+    .section-description {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1.2rem;
+    }
 
-  list.innerHTML = "";
+    /* ── Product Grid ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
 
-  if (favorites.length === 0) {
-    list.innerHTML = "<p>No favorites saved yet.</p>";
-    return;
-  }
+    /* ── Product Card ── */
+    .product-card {
+      background: white;
+      border: 1px solid #e8ddd0;
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: box-shadow 0.2s;
+    }
 
-  favorites.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} — ${item.price}`;
-    list.appendChild(li);
-  });
-}
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-// ============================================================
-// Load favorites from localStorage and restore button states
-// ============================================================
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      background-color: #f0e8dc;
+    }
 
-function loadFavorites() {
-  try {
-    const stored = localStorage.getItem("bakeryFavorites");
-    if (stored) {
-      const parsed = JSON.parse(stored);
+    .product-card h3 {
+      font-size: 1.05rem;
+      color: #5c3317;
+    }
 
-      // Drop any IDs that no longer exist in the catalog
-      favorites = parsed.filter(item => products[item.id]);
+    .product-card p {
+      font-size: 0.88rem;
+      color: #666;
+      flex: 1;
+    }
 
-      renderFavorites();
+    /* ── Price + Button Row ── */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
 
-      // Restore ♥ on all previously saved buttons
-      favorites.forEach(item => {
-        const btn = document.querySelector(`[data-product-id="${item.id}"]`);
+    .price {
+      font-size: 0.95rem;
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    /* ── Favorite Button ── */
+    .fav-btn {
+      background: none;
+      border: 1px solid #c8a97e;
+      border-radius: 20px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: #888;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .fav-btn:hover {
+      background-color: #fdf0e8;
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+
+    .fav-btn.favorited {
+      background-color: #fdf0e8;
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+
+    /* ── Favorites Section ── */
+    #favorites-section {
+      margin: 3rem 0 2rem;
+      padding: 1.5rem;
+      background: white;
+      border: 1px solid #e8ddd0;
+      border-radius: 8px;
+    }
+
+    #favorites-section h2 {
+      font-size: 1.3rem;
+      color: #5c3317;
+      border-bottom: 2px solid #c8a97e;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    #favorites-list {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+
+    #favorites-list li {
+      padding: 0.3rem 0;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    #favorites-list p {
+      color: #999;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background-color: #5c3317;
+      color: #f5e6d3;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <h1>North Star Bakery</h1>
+    <p>142 Maple Street, Minneapolis, MN</p>
+  </header>
+
+  <main>
+
+    <!-- ════════════════════════════════
+         BREADS
+    ════════════════════════════════ -->
+    <h2 class="section-title">Breads</h2>
+    <p class="section-description">
+      Our breads are slow-fermented and stone-baked every morning.
+      We offer a rotating selection of classic and seasonal varieties.
+    </p>
+
+    <div class="product-grid">
+
+      <!-- Classic Sourdough -->
+      <div class="product-card">
+        <img src="images/classic-sourdough.jpg" alt="Classic Sourdough" />
+        <h3>Classic Sourdough</h3>
+        <p>
+          Slow-fermented for 24 hours with a crispy crust and open,
+          chewy crumbs. Perfect for sandwiches, toast, or eating plain with butter.
+        </p>
+        <div class="card-footer">
+          <span class="price">$9.00 – $12.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="classic-sourdough"
+            onclick="toggleFavorite('classic-sourdough')"
+            aria-label="Add Classic Sourdough to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Honey Oat Loaf -->
+      <div class="product-card">
+        <img src="images/honey-oat-loaf.jpg" alt="Honey Oat Loaf" />
+        <h3>Honey Oat Loaf</h3>
+        <p>
+          Made with local wildflower honey and rolled oats.
+          Soft, slightly sweet, and ideal for breakfast toast or a simple sandwich.
+        </p>
+        <div class="card-footer">
+          <span class="price">$8.00 – $10.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="honey-oat-loaf"
+            onclick="toggleFavorite('honey-oat-loaf')"
+            aria-label="Add Honey Oat Loaf to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Seeded Rye -->
+      <div class="product-card">
+        <img src="images/seeded-rye.jpg" alt="Seeded Rye" />
+        <h3>Seeded Rye</h3>
+        <p>
+          A hearty, dense loaf made with whole rye flour and topped with
+          caraway and sunflower seeds. Rich in flavor and great with smoked salmon or sharp cheese.
+        </p>
+        <div class="card-footer">
+          <span class="price">$9.00 – $11.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="seeded-rye"
+            onclick="toggleFavorite('seeded-rye')"
+            aria-label="Add Seeded Rye to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Rosemary Focaccia -->
+      <div class="product-card">
+        <img src="images/rosemary-focaccia.jpg" alt="Rosemary Focaccia" />
+        <h3>Rosemary Focaccia</h3>
+        <p>
+          Light and airy with a crispy bottom, drizzled with olive oil and topped
+          with fresh rosemary and flaky sea salt. Available by the sheet or half sheet.
+        </p>
+        <div class="card-footer">
+          <span class="price">$7.00 – $14.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="rosemary-focaccia"
+            onclick="toggleFavorite('rosemary-focaccia')"
+            aria-label="Add Rosemary Focaccia to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end .product-grid Breads -->
+
+
+    <!-- ════════════════════════════════
+         PASTRIES
+    ════════════════════════════════ -->
+    <h2 class="section-title">Pastries</h2>
+    <p class="section-description">
+      Buttery, flaky, and made from scratch every morning.
+      Our pastry selection rotates seasonally to highlight the best local produce and flavors.
+    </p>
+
+    <div class="product-grid">
+
+      <!-- Butter Croissant -->
+      <div class="product-card">
+        <img src="images/butter-croissant.jpg" alt="Butter Croissant" />
+        <h3>Butter Croissant</h3>
+        <p>
+          Classic French-style croissants laminated with European-style butter.
+          Crispy on the outside, soft and layered on the inside.
+        </p>
+        <div class="card-footer">
+          <span class="price">$3.50 – $4.50</span>
+          <button
+            class="fav-btn"
+            data-product-id="butter-croissant"
+            onclick="toggleFavorite('butter-croissant')"
+            aria-label="Add Butter Croissant to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Seasonal Fruit Danish -->
+      <div class="product-card">
+        <img src="images/seasonal-fruit-danish.jpg" alt="Seasonal Fruit Danish" />
+        <h3>Seasonal Fruit Danish</h3>
+        <p>
+          Flaky pastry dough filled with cream cheese and rotating seasonal
+          fruit preserves. Ask us what flavor we are featuring this week.
+        </p>
+        <div class="card-footer">
+          <span class="price">$4.00 – $5.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="seasonal-fruit-danish"
+            onclick="toggleFavorite('seasonal-fruit-danish')"
+            aria-label="Add Seasonal Fruit Danish to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Cinnamon Morning Bun -->
+      <div class="product-card">
+        <img src="images/cinnamon-morning-bun.jpg" alt="Cinnamon Morning Bun" />
+        <h3>Cinnamon Morning Bun</h3>
+        <p>
+          Rolled croissant dough with cinnamon sugar and orange zest, baked until
+          caramelized and dusted with powdered sugar. A customer favorite.
+        </p>
+        <div class="card-footer">
+          <span class="price">$4.00 – $5.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="cinnamon-morning-bun"
+            onclick="toggleFavorite('cinnamon-morning-bun')"
+            aria-label="Add Cinnamon Morning Bun to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Chocolate Almond Croissant -->
+      <div class="product-card">
+        <img src="images/chocolate-almond-croissant.jpg" alt="Chocolate Almond Croissant" />
+        <h3>Chocolate Almond Croissant</h3>
+        <p>
+          A twice-baked croissant filled with dark chocolate and almond cream,
+          topped with toasted sliced almonds and a dusting of powdered sugar.
+        </p>
+        <div class="card-footer">
+          <span class="price">$5.00 – $6.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="chocolate-almond-croissant"
+            onclick="toggleFavorite('chocolate-almond-croissant')"
+            aria-label="Add Chocolate Almond Croissant to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end .product-grid Pastries -->
+
+
+    <!-- ════════════════════════════════
+         CAKES
+    ════════════════════════════════ -->
+    <h2 class="section-title">Cakes</h2>
+    <p class="section-description">
+      Our cakes are made to order for birthdays, weddings, celebrations,
+      and everyday indulgences. All cakes require at least 48 hours advance notice.
+    </p>
+
+    <div class="product-grid">
+
+      <!-- Classic Vanilla Celebration Cake -->
+      <div class="product-card">
+        <img src="images/classic-vanilla-cake.jpg" alt="Classic Vanilla Celebration Cake" />
+        <h3>Classic Vanilla Celebration Cake</h3>
+        <p>
+          Three layers of moist vanilla sponge filled and frosted with smooth vanilla
+          buttercream. Can be customized with flavors, colors, and decorations.
+        </p>
+        <div class="card-footer">
+          <span class="price">$45.00 – $85.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="classic-vanilla-celebration-cake"
+            onclick="toggleFavorite('classic-vanilla-celebration-cake')"
+            aria-label="Add Classic Vanilla Celebration Cake to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Dark Chocolate Ganache Cake -->
+      <div class="product-card">
+        <img src="images/dark-chocolate-ganache-cake.jpg" alt="Dark Chocolate Ganache Cake" />
+        <h3>Dark Chocolate Ganache Cake</h3>
+        <p>
+          Rich dark chocolate sponge layered with chocolate ganache and finished
+          with a glossy ganache drip. A showstopper for any occasion.
+        </p>
+        <div class="card-footer">
+          <span class="price">$50.00 – $95.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="dark-chocolate-ganache-cake"
+            onclick="toggleFavorite('dark-chocolate-ganache-cake')"
+            aria-label="Add Dark Chocolate Ganache Cake to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Lemon Drizzle Loaf -->
+      <div class="product-card">
+        <img src="images/lemon-drizzle-loaf.jpg" alt="Lemon Drizzle Loaf" />
+        <h3>Lemon Drizzle Loaf</h3>
+        <p>
+          A bright and zesty loaf cake made with fresh lemon zest and juice,
+          finished with a tangy lemon glaze. Great for afternoon tea or as a gift.
+        </p>
+        <div class="card-footer">
+          <span class="price">$18.00 – $24.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="lemon-drizzle-loaf"
+            onclick="toggleFavorite('lemon-drizzle-loaf')"
+            aria-label="Add Lemon Drizzle Loaf to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <!-- Carrot Cake -->
+      <div class="product-card">
+        <img src="images/carrot-cake.jpg" alt="Carrot Cake with Cream Cheese Frosting" />
+        <h3>Carrot Cake with Cream Cheese Frosting</h3>
+        <p>
+          Warmly spiced carrot cake with crushed walnuts, topped with tangy
+          cream cheese frosting. Available as a full cake or individual slices.
+        </p>
+        <div class="card-footer">
+          <span class="price">$40.00 – $75.00</span>
+          <button
+            class="fav-btn"
+            data-product-id="carrot-cake-cream-cheese"
+            onclick="toggleFavorite('carrot-cake-cream-cheese')"
+            aria-label="Add Carrot Cake to favorites">
+            ☆ Save to Favorites
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end .product-grid Cakes -->
+
+
+    <!-- ════════════════════════════════
+         YOUR FAVORITES
+    ════════════════════════════════ -->
+    <section id="favorites-section">
+      <h2>Your Favorites</h2>
+      <ul id="favorites-list">
+        <p>No favorites saved yet.</p>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <p>© 2026 North Star Bakery — 142 Maple Street, Minneapolis, MN</p>
+    <p>Made with love and local ingredients.</p>
+  </footer>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    const products = {
+      "classic-sourdough":              { name: "Classic Sourdough",                    price: "$9.00 – $12.00" },
+      "honey-oat-loaf":                 { name: "Honey Oat Loaf",                       price: "$8.00 – $10.00" },
+      "seeded-rye":                     { name: "Seeded Rye",                           price: "$9.00 – $11.00" },
+      "rosemary-focaccia":              { name: "Rosemary Focaccia",                    price: "$7.00 – $14.00" },
+      "butter-croissant":               { name: "Butter Croissant",                     price: "$3.50 – $4.50"  },
+      "seasonal-fruit-danish":          { name: "Seasonal Fruit Danish",                price: "$4.00 – $5.00"  },
+      "cinnamon-morning-bun":           { name: "Cinnamon Morning Bun",                 price: "$4.00 – $5.00"  },
+      "chocolate-almond-croissant":     { name: "Chocolate Almond Croissant",           price: "$5.00 – $6.00"  },
+      "classic-vanilla-celebration-cake": { name: "Classic Vanilla Celebration Cake",  price: "$45.00 – $85.00"},
+      "dark-chocolate-ganache-cake":    { name: "Dark Chocolate Ganache Cake",          price: "$50.00 – $95.00"},
+      "lemon-drizzle-loaf":             { name: "Lemon Drizzle Loaf",                   price: "$18.00 – $24.00"},
+      "carrot-cake-cream-cheese":       { name: "Carrot Cake with Cream Cheese Frosting", price: "$40.00 – $75.00"}
+    };
+
+    let favorites = [];
+
+    // ── Toggle ♥ / ☆ ──
+    function toggleFavorite(productId) {
+      if (!products[productId]) {
+        console.warn(`Product ID "${productId}" not found.`);
+        return;
+      }
+
+      const btn = document.querySelector(`[data-product-id="${productId}"]`);
+      const alreadySaved = favorites.some(item => item.id === productId);
+
+      if (alreadySaved) {
+        favorites = favorites.filter(item => item.id !== productId);
         if (btn) {
-          btn.textContent = "♥";
-          btn.classList.add("favorited");
-          btn.setAttribute("aria-label", `Remove ${item.name} from favorites`);
+          btn.textContent = "☆ Save to Favorites";
+          btn.classList.remove("favorited");
+          btn.setAttribute("aria-label", `Add ${products[productId].name} to favorites`);
         }
-      });
-    } else {
-      // Nothing stored yet — show empty state
+      } else {
+        favorites.push({ id: productId, ...products[productId] });
+        if (btn) {
+          btn.textContent = "♥ Saved";
+          btn.classList.add("favorited");
+          btn.setAttribute("aria-label", `Remove ${products[productId].name} from favorites`);
+        }
+      }
+
+      saveFavorites();
       renderFavorites();
     }
-  } catch (e) {
-    console.error("Could not load favorites:", e);
-    favorites = [];
-    renderFavorites();
-  }
-}
 
-// ============================================================
-// Init on page load
-// ============================================================
+    // ── Save to localStorage ──
+    function saveFavorites() {
+      try {
+        localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
+      } catch (e) {
+        console.error("Could not save favorites:", e);
+      }
+    }
 
-window.addEventListener("DOMContentLoaded", loadFavorites);
+    // ── Render favorites list ──
+    function renderFavorites() {
+      const list = document.getElementById("favorites-list");
+      if (!list) return;
+
+      list.innerHTML = "";
+
+      if (favorites.length === 0) {
+        list.innerHTML = "<p>No favorites saved yet.</p>";
+        return;
+      }
+
+      favorites.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} — ${item.price}`;
+        list.appendChild(li);
+      });
+    }
+
+    // ── Load from localStorage ──
+    function loadFavorites() {
+      try {
+        const stored = localStorage.getItem("bakeryFavorites");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          favorites = parsed.filter(item => products[item.id]);
+
+          favorites.forEach(item => {
+            const btn = document.querySelector(`[data-product-id="${item.id}"]`);
+            if (btn) {
+              btn.textContent = "♥ Saved";
+              btn.classList.add("favorited");
+              btn.setAttribute("aria-label", `Remove ${item.name} from favorites`);
+            }
+          });
+        }
+      } catch (e) {
+        console.error("Could not load favorites:", e);
+        favorites = [];
+      }
+
+      renderFavorites();
+    }
+
+    window.addEventListener("DOMContentLoaded", loadFavorites);
+  </script>
+
+</body>
+</html>
