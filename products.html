@@ -31,55 +31,37 @@
       </p>
     </header>
 
-    <!-- Main Content -->
     <main>
 
-      <!-- =============================================
-           T4: FAVORITES PANEL
-      ============================================= -->
-      <section
-        class="favorites-panel"
-        id="favorites-panel"
-        aria-label="Your saved favorites"
-      >
+      <!-- FAVORITES PANEL -->
+      <section class="favorites-panel" id="favorites-panel">
         <h2>
           Your Saved Favorites
-          <span
-            class="favorites-badge"
-            id="favorites-count"
-            aria-label="Number of saved favorites"
-          >0</span>
+          <span class="favorites-badge" id="favorites-count">0</span>
         </h2>
-
         <p id="favorites-empty" class="favorites-empty">
           You have not saved any favorites yet. Click the
           ♡ Save button on any product below to save it here.
         </p>
-
         <ul id="favorites-list" class="favorites-list"></ul>
-
         <p class="favorites-hint">
-          Your favorites are remembered even after you close
-          the page. Ready to order?
+          Your favorites are remembered even after you close the page.
+          Ready to order?
           <a href="contact.html">Submit a pre-order request →</a>
         </p>
       </section>
 
-      <!-- Breads Section -->
+      <!-- BREADS -->
       <section class="product-category">
         <h2>Breads</h2>
         <p class="category-intro">
           Our breads are slow-fermented and stone-baked every morning.
           We offer a rotating selection of classic and seasonal varieties.
         </p>
-
         <div class="card-container">
 
-          <div class="card" data-product-id="classic-sourdough">
-            <img
-              src="bakery-bread.jpg"
-              alt="A freshly baked sourdough loaf with a golden scored crust"
-            />
+          <div class="card">
+            <img src="bakery-bread.jpg" alt="Classic Sourdough" />
             <div class="card-body">
               <h3>Classic Sourdough</h3>
               <p>
@@ -88,20 +70,12 @@
                 for sandwiches, toast, or eating plain with butter.
               </p>
               <p class="price">$9.00 – $12.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="classic-sourdough"
-                aria-pressed="false"
-                aria-label="Save Classic Sourdough to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="classic-sourdough">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="honey-oat-loaf">
-            <img
-              src="bakery-bread.jpg"
-              alt="A sliced honey oat loaf showing a soft golden interior"
-            />
+          <div class="card">
+            <img src="bakery-bread.jpg" alt="Honey Oat Loaf" />
             <div class="card-body">
               <h3>Honey Oat Loaf</h3>
               <p>
@@ -110,20 +84,12 @@
                 or a simple sandwich.
               </p>
               <p class="price">$8.00 – $10.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="honey-oat-loaf"
-                aria-pressed="false"
-                aria-label="Save Honey Oat Loaf to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="honey-oat-loaf">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="seeded-rye">
-            <img
-              src="bakery-bread.jpg"
-              alt="A dark seeded rye loaf on a wooden cutting board"
-            />
+          <div class="card">
+            <img src="bakery-bread.jpg" alt="Seeded Rye" />
             <div class="card-body">
               <h3>Seeded Rye</h3>
               <p>
@@ -132,20 +98,12 @@
                 flavor and great with smoked salmon or sharp cheese.
               </p>
               <p class="price">$9.00 – $11.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="seeded-rye"
-                aria-pressed="false"
-                aria-label="Save Seeded Rye to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="seeded-rye">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="rosemary-focaccia">
-            <img
-              src="bakery-bread.jpg"
-              alt="A round rosemary focaccia topped with olive oil and sea salt"
-            />
+          <div class="card">
+            <img src="bakery-bread.jpg" alt="Rosemary Focaccia" />
             <div class="card-body">
               <h3>Rosemary Focaccia</h3>
               <p>
@@ -154,19 +112,14 @@
                 sea salt. Available by the sheet or half sheet.
               </p>
               <p class="price">$7.00 – $14.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="rosemary-focaccia"
-                aria-pressed="false"
-                aria-label="Save Rosemary Focaccia to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="rosemary-focaccia">♡ Save</button>
             </div>
           </div>
 
         </div>
       </section>
 
-      <!-- Pastries Section -->
+      <!-- PASTRIES -->
       <section class="product-category">
         <h2>Pastries</h2>
         <p class="category-intro">
@@ -174,14 +127,10 @@
           Our pastry selection rotates seasonally to highlight
           the best local produce and flavors.
         </p>
-
         <div class="card-container">
 
-          <div class="card" data-product-id="butter-croissant">
-            <img
-              src="bakery-storefront.jpg"
-              alt="A golden butter croissant on a white plate"
-            />
+          <div class="card">
+            <img src="bakery-storefront.jpg" alt="Butter Croissant" />
             <div class="card-body">
               <h3>Butter Croissant</h3>
               <p>
@@ -190,20 +139,12 @@
                 soft and layered on the inside.
               </p>
               <p class="price">$3.50 – $4.50</p>
-              <button
-                class="fav-btn"
-                data-product-id="butter-croissant"
-                aria-pressed="false"
-                aria-label="Save Butter Croissant to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="butter-croissant">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="fruit-danish">
-            <img
-              src="bakery-storefront.jpg"
-              alt="A fruit danish with raspberry filling and a glaze drizzle"
-            />
+          <div class="card">
+            <img src="bakery-storefront.jpg" alt="Seasonal Fruit Danish" />
             <div class="card-body">
               <h3>Seasonal Fruit Danish</h3>
               <p>
@@ -212,20 +153,12 @@
                 flavor we are featuring this week.
               </p>
               <p class="price">$4.00 – $5.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="fruit-danish"
-                aria-pressed="false"
-                aria-label="Save Seasonal Fruit Danish to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="fruit-danish">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="morning-bun">
-            <img
-              src="bakery-storefront.jpg"
-              alt="A cinnamon morning bun dusted with sugar on a tray"
-            />
+          <div class="card">
+            <img src="bakery-storefront.jpg" alt="Cinnamon Morning Bun" />
             <div class="card-body">
               <h3>Cinnamon Morning Bun</h3>
               <p>
@@ -234,20 +167,12 @@
                 with powdered sugar. A customer favorite.
               </p>
               <p class="price">$4.00 – $5.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="morning-bun"
-                aria-pressed="false"
-                aria-label="Save Cinnamon Morning Bun to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="morning-bun">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="choc-almond">
-            <img
-              src="bakery-storefront.jpg"
-              alt="A chocolate almond croissant with sliced almonds on top"
-            />
+          <div class="card">
+            <img src="bakery-storefront.jpg" alt="Chocolate Almond Croissant" />
             <div class="card-body">
               <h3>Chocolate Almond Croissant</h3>
               <p>
@@ -256,19 +181,14 @@
                 and a dusting of powdered sugar.
               </p>
               <p class="price">$5.00 – $6.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="choc-almond"
-                aria-pressed="false"
-                aria-label="Save Chocolate Almond Croissant to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="choc-almond">♡ Save</button>
             </div>
           </div>
 
         </div>
       </section>
 
-      <!-- Cakes Section -->
+      <!-- CAKES -->
       <section class="product-category">
         <h2>Cakes</h2>
         <p class="category-intro">
@@ -276,14 +196,10 @@
           celebrations, and everyday indulgences. All cakes
           require at least 48 hours advance notice.
         </p>
-
         <div class="card-container">
 
-          <div class="card" data-product-id="vanilla-cake">
-            <img
-              src="bakery-signature-loaf.jpg"
-              alt="A three layer vanilla celebration cake with white buttercream frosting"
-            />
+          <div class="card">
+            <img src="bakery-signature-loaf.jpg" alt="Classic Vanilla Celebration Cake" />
             <div class="card-body">
               <h3>Classic Vanilla Celebration Cake</h3>
               <p>
@@ -292,20 +208,12 @@
                 customized with flavors, colors, and decorations.
               </p>
               <p class="price">$45.00 – $85.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="vanilla-cake"
-                aria-pressed="false"
-                aria-label="Save Classic Vanilla Celebration Cake to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="vanilla-cake">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="choc-ganache-cake">
-            <img
-              src="bakery-signature-loaf.jpg"
-              alt="A rich dark chocolate layer cake with ganache drip"
-            />
+          <div class="card">
+            <img src="bakery-signature-loaf.jpg" alt="Dark Chocolate Ganache Cake" />
             <div class="card-body">
               <h3>Dark Chocolate Ganache Cake</h3>
               <p>
@@ -314,20 +222,12 @@
                 A showstopper for any occasion.
               </p>
               <p class="price">$50.00 – $90.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="choc-ganache-cake"
-                aria-pressed="false"
-                aria-label="Save Dark Chocolate Ganache Cake to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="choc-ganache-cake">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="lemon-drizzle">
-            <img
-              src="bakery-signature-loaf.jpg"
-              alt="A lemon drizzle loaf cake with white glaze on a wooden board"
-            />
+          <div class="card">
+            <img src="bakery-signature-loaf.jpg" alt="Lemon Drizzle Loaf" />
             <div class="card-body">
               <h3>Lemon Drizzle Loaf</h3>
               <p>
@@ -336,20 +236,12 @@
                 Great for afternoon tea or as a gift.
               </p>
               <p class="price">$18.00 – $24.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="lemon-drizzle"
-                aria-pressed="false"
-                aria-label="Save Lemon Drizzle Loaf to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="lemon-drizzle">♡ Save</button>
             </div>
           </div>
 
-          <div class="card" data-product-id="carrot-cake">
-            <img
-              src="bakery-signature-loaf.jpg"
-              alt="A seasonal carrot cake with cream cheese frosting and walnut topping"
-            />
+          <div class="card">
+            <img src="bakery-signature-loaf.jpg" alt="Carrot Cake" />
             <div class="card-body">
               <h3>Carrot Cake with Cream Cheese Frosting</h3>
               <p>
@@ -358,12 +250,7 @@
                 as a full cake or individual slices.
               </p>
               <p class="price">$40.00 – $75.00</p>
-              <button
-                class="fav-btn"
-                data-product-id="carrot-cake"
-                aria-pressed="false"
-                aria-label="Save Carrot Cake to favorites"
-              >♡ Save</button>
+              <button class="fav-btn" data-id="carrot-cake">♡ Save</button>
             </div>
           </div>
 
@@ -381,13 +268,11 @@
           <video controls>
             <source src="bakery-behind-scenes.mp4" type="video/mp4" />
             Your browser does not support the video element.
-            Please visit us in store at 142 Maple Street,
-            Minneapolis, MN to see our baking process in person.
           </video>
         </div>
       </section>
 
-      <!-- Pre-Order Call to Action -->
+      <!-- CTA -->
       <section class="cta">
         <h2>Ready to Order?</h2>
         <p>
@@ -400,7 +285,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer>
       <p>
         &copy; 2026 North Star Bakery &mdash; 142 Maple Street,
@@ -414,7 +298,6 @@
       </nav>
     </footer>
 
-    <!-- T4: JavaScript -->
     <script src="script.js"></script>
 
   </body>
