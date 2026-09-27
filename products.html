@@ -1,64 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Products – North Star Bakery</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>North Star Bakery - Products</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
 
-  <header>
-    <h1>North Star Bakery</h1>
+    <!-- Navigation -->
     <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <h2>Our Products</h2>
-
-    <!-- Product Card 1 -->
-    <div class="product-card">
-      <h3>Sourdough Loaf</h3>
-      <p>$8.00</p>
-      <p>Our classic tangy sourdough baked fresh daily.</p>
-      <button class="heart-btn" data-product-id="sourdough" onclick="toggleFavorite('sourdough')">☆ Save to Favorites</button>
-    </div>
-
-    <!-- Product Card 2 -->
-    <div class="product-card">
-      <h3>Cinnamon Morning Bun</h3>
-      <p>$4.50</p>
-      <p>Soft, sweet, and perfect with your morning coffee.</p>
-      <button class="heart-btn" data-product-id="cinnamon-bun" onclick="toggleFavorite('cinnamon-bun')">☆ Save to Favorites</button>
-    </div>
-
-    <!-- Product Card 3 -->
-    <div class="product-card">
-      <h3>Blueberry Scone</h3>
-      <p>$3.75</p>
-      <p>Bursting with fresh blueberries in every bite.</p>
-      <button class="heart-btn" data-product-id="blueberry-scone" onclick="toggleFavorite('blueberry-scone')">☆ Save to Favorites</button>
-    </div>
-
-    <!-- Favorites Display Section -->
-    <section id="favorites-section">
-      <h2>Your Favorites</h2>
-      <ul id="favorites-list">
-        <p>No favorites saved yet.</p>
+      <div class="nav-logo">
+        <img src="bakery-logo.png" alt="North Star Bakery logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-    </section>
+    </nav>
 
-  </main>
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Our Products</h1>
+      <p>
+        Everything we make is baked fresh daily using simple,
+        honest ingredients. Browse our categories below and
+        contact us to place a pre-order or ask a question.
+      </p>
+    </header>
 
-  <footer>
-    <p>&copy; 2024 North Star Bakery</p>
-  </footer>
+    <!-- Main Content -->
+    <main>
 
-  <script src="script.js"></script>
-</body>
+      <!-- Breads Section -->
+      <section class="product-category">
+        <h2>Breads</h2>
+        <p class="category-intro">
+          Our breads are slow-fermented and stone-baked every morning.
+          We offer a rotating selection of classic and seasonal varieties.
+        </p>
+
+        <div class="card-container">
+
+          <div class="card">
+            <img
+              src="bakery-bread.jpg"
+              alt="A freshly baked sourdough loaf with a golden scored crust"
+            />
+            <div class="card-body">
+              <h3>Classic Sourdough</h3>
+              <p>
+                Our most popular loaf. Slow-fermented for 24 hours
+                with a crispy crust and open, chewy crumb. Perfect
+                for sandwiches, toast, or eating plain with butter.
+              </p>
+              <p class="price">$9.00 – $12.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-bread.jpg"
+              alt="A sliced honey oat loaf showing a soft golden interior"
+            />
+            <div class="card-body">
+              <h3>Honey Oat Loaf</h3>
+              <p>
+                Made with local wildflower honey and rolled oats.
+                Soft, slightly sweet, and ideal for breakfast toast
+                or a simple sandwich.
+              </p>
+              <p class="price">$8.00 – $10.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-bread.jpg"
+              alt="A dark seeded rye loaf on a wooden cutting board"
+            />
+            <div class="card-body">
+              <h3>Seeded Rye</h3>
+              <p>
+                A hearty, dense loaf made with whole rye flour and
+                topped with caraway and sunflower seeds. Rich in
+                flavor and great with smoked salmon or sharp cheese.
+              </p>
+              <p class="price">$9.00 – $11.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-bread.jpg"
+              alt="A round rosemary focaccia topped with olive oil and sea salt"
+            />
+            <div class="card-body">
+              <h3>Rosemary Focaccia</h3>
+              <p>
+                Light and airy with a crispy bottom, drizzled with
+                olive oil and topped with fresh rosemary and flaky
+                sea salt. Available by the sheet or half sheet.
+              </p>
+              <p class="price">$7.00 – $14.00</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Pastries Section -->
+      <section class="product-category">
+        <h2>Pastries</h2>
+        <p class="category-intro">
+          Buttery, flaky, and made from scratch every morning.
+          Our pastry selection rotates seasonally to highlight
+          the best local produce and flavors.
+        </p>
+
+        <div class="card-container">
+
+          <div class="card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="A golden butter croissant on a white plate"
+            />
+            <div class="card-body">
+              <h3>Butter Croissant</h3>
+              <p>
+                Classic French-style croissants laminated with
+                European-style butter. Crispy on the outside,
+                soft and layered on the inside.
+              </p>
+              <p class="price">$3.50 – $4.50</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="A fruit danish with raspberry filling and a glaze drizzle"
+            />
+            <div class="card-body">
+              <h3>Seasonal Fruit Danish</h3>
+              <p>
+                Flaky pastry dough filled with cream cheese and
+                rotating seasonal fruit preserves. Ask us what
+                flavor we are featuring this week.
+              </p>
+              <p class="price">$4.00 – $5.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="A cinnamon morning bun dusted with sugar on a tray"
+            />
+            <div class="card-body">
+              <h3>Cinnamon Morning Bun</h3>
+              <p>
+                Rolled croissant dough with cinnamon sugar and
+                orange zest, baked until caramelized and dusted
+                with powdered sugar. A customer favorite.
+              </p>
+              <p class="price">$4.00 – $5.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-storefront.jpg"
+              alt="A chocolate almond croissant with sliced almonds on top"
+            />
+            <div class="card-body">
+              <h3>Chocolate Almond Croissant</h3>
+              <p>
+                A twice-baked croissant filled with dark chocolate
+                and almond cream, topped with toasted sliced almonds
+                and a dusting of powdered sugar.
+              </p>
+              <p class="price">$5.00 – $6.00</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Cakes Section -->
+      <section class="product-category">
+        <h2>Cakes</h2>
+        <p class="category-intro">
+          Our cakes are made to order for birthdays, weddings,
+          celebrations, and everyday indulgences. All cakes
+          require at least 48 hours advance notice.
+        </p>
+
+        <div class="card-container">
+
+          <div class="card">
+            <img
+              src="bakery-signature-loaf.jpg"
+              alt="A three layer vanilla celebration cake with white buttercream frosting"
+            />
+            <div class="card-body">
+              <h3>Classic Vanilla Celebration Cake</h3>
+              <p>
+                Three layers of moist vanilla sponge filled and
+                frosted with smooth vanilla buttercream. Can be
+                customized with flavors, colors, and decorations.
+              </p>
+              <p class="price">$45.00 – $85.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-signature-loaf.jpg"
+              alt="A rich dark chocolate layer cake with ganache drip"
+            />
+            <div class="card-body">
+              <h3>Dark Chocolate Ganache Cake</h3>
+              <p>
+                Rich dark chocolate sponge layered with chocolate
+                ganache and finished with a glossy ganache drip.
+                A showstopper for any occasion.
+              </p>
+              <p class="price">$50.00 – $90.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-signature-loaf.jpg"
+              alt="A lemon drizzle loaf cake with white glaze on a wooden board"
+            />
+            <div class="card-body">
+              <h3>Lemon Drizzle Loaf</h3>
+              <p>
+                A bright and zesty loaf cake made with fresh lemon
+                zest and juice, finished with a tangy lemon glaze.
+                Great for afternoon tea or as a gift.
+              </p>
+              <p class="price">$18.00 – $24.00</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="bakery-signature-loaf.jpg"
+              alt="A seasonal carrot cake with cream cheese frosting and walnut topping"
+            />
+            <div class="card-body">
+              <h3>Carrot Cake with Cream Cheese Frosting</h3>
+              <p>
+                Warmly spiced carrot cake with crushed walnuts,
+                topped with tangy cream cheese frosting. Available
+                as a full cake or individual slices.
+              </p>
+              <p class="price">$40.00 – $75.00</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Behind the Scenes Video -->
+      <section class="video-section">
+        <h2>Behind the Scenes</h2>
+        <p>
+          Take a peek at how we craft our products fresh every
+          morning before the bakery opens its doors.
+        </p>
+        <div class="video-wrapper">
+          <video controls>
+            <source src="bakery-behind-scenes.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+            Please visit us in store at 142 Maple Street,
+            Minneapolis, MN to see our baking process in person.
+          </video>
+        </div>
+      </section>
+
+      <!-- Pre-Order Call to Action -->
+      <section class="cta">
+        <h2>Ready to Order?</h2>
+        <p>
+          All custom cakes and large bread orders require at least
+          48 hours advance notice. Use our contact form to submit
+          a pre-order request or ask us a question.
+        </p>
+        <a href="contact.html" class="btn">Submit a Pre-Order Request</a>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2026 North Star Bakery &mdash; 142 Maple Street,
+        Minneapolis, MN &mdash; Made with love and local ingredients.
+      </p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </footer>
+
+  </body>
 </html>
+<!-- Product Card Example -->
+<div class="product-card">
+  <h3>Sourdough Loaf</h3>
+  <p>$8.00</p>
+  <button class="heart-btn" data-product-id="sourdough" onclick="toggleFavorite('sourdough')">☆</button>
+</div>
+
+<div class="product-card">
+  <h3>Cinnamon Morning Bun</h3>
+  <p>$4.50</p>
+  <button class="heart-btn" data-product-id="cinnamon-bun" onclick="toggleFavorite('cinnamon-bun')">☆</button>
+</div>
+
+<!-- Favorites List Display -->
+<section id="favorites-section">
+  <h2>Your Favorites</h2>
+  <ul id="favorites-list">
+    <p>No favorites saved yet.</p>
+  </ul>
+</section>
+
+<script src="script.js"></script>
