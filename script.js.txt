@@ -1,0 +1,66 @@
+// Products data object
+const products = {
+  "sourdough": { name: "Sourdough Loaf", price: "$8.00" },
+  "cinnamon-bun": { name: "Cinnamon Morning Bun", price: "$4.50" },
+  "blueberry-scone": { name: "Blueberry Scone", price: "$3.75" }
+};
+
+// Favorites array
+let favorites = [];
+
+// Toggle favorite on or off
+function toggleFavorite(productId) {
+  const btn = document.querySelector(`[data-product-id="${productId}"]`);
+  const alreadySaved = favorites.find(item => item.id === productId);
+
+  if (alreadySaved) {
+    // Remove from favorites
+    favorites = favorites.filter(item => item.id !== productId);
+    btn.textContent = "☆ Save to Favorites";
+  } else {
+    // Add to favorites
+    favorites.push({ id: productId, ...products[productId] });
+    btn.textContent = "♥ Saved!";
+  }
+
+  saveFavorites();
+  renderFavorites();
+}
+
+// Save to localStorage
+function saveFavorites() {
+  localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
+}
+
+// Display favorites list on page
+function renderFavorites() {
+  const list = document.getElementById("favorites-list");
+  list.innerHTML = "";
+
+  if (favorites.length === 0) {
+    list.innerHTML = "<p>No favorites saved yet.</p>";
+    return;
+  }
+
+  favorites.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} — ${item.price}`;
+    list.appendChild(li);
+  });
+}
+
+// Load favorites when page opens
+function loadFavorites() {
+  const stored = localStorage.getItem("bakeryFavorites");
+  if (stored) {
+    favorites = JSON.parse(stored);
+    renderFavorites();
+    // Restore heart button states
+    favorites.forEach(item => {
+      const btn = document.querySelector(`[data-product-id="${item.id}"]`);
+      if (btn) btn.textContent = "♥ Saved!";
+    });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", loadFavorites);
