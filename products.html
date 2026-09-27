@@ -57,6 +57,11 @@
                 for sandwiches, toast, or eating plain with butter.
               </p>
               <p class="price">$9.00 – $12.00</p>
+
+                <button class="heart-btn" data-product-id="sourdough" onclick="toggleFavorite('sourdough')">☆ Save to Favorites</button>
+              
+
+</div>
             </div>
           </div>
 
@@ -310,6 +315,16 @@
         <a href="contact.html">Contact</a>
       </nav>
     </footer>
+
+    <section id="favorites-section">
+    <h2>Your Favorites</h2>
+    <ul id="favorites-list">
+      <p>No favorites saved yet.</p>
+    </ul>
+  </section>
+
+  <!-- ADD THIS SCRIPT LINK before </body> -->
+  <script src="script.js"></script>
 
   </body>
 </html>
