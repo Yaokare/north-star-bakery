@@ -20,31 +20,30 @@
    CSS VARIABLES
 ============================================= */
 :root {
-  --color-cream:   #FFF8F0;
-  --color-brown:   #6B3E26;
-  --color-peach:   #D88C5A;
-  --color-charcoal:#2F2A26;
-  --color-white:   #FFFFFF;
-  --color-light:   #F5EDE3;
+  --color-cream:      #FFF8F0;
+  --color-brown:      #6B3E26;
+  --color-peach:      #D88C5A;
+  --color-charcoal:   #2F2A26;
+  --color-white:      #FFFFFF;
+  --color-light:      #F5EDE3;
 
-  /* NEW T4: semantic colors for validation states */
-  --color-error:   #C0392B;
-  --color-error-bg:#FFF5F5;
-  --color-success: #27AE60;
+  --color-error:      #C0392B;
+  --color-error-bg:   #FFF5F5;
+  --color-success:    #27AE60;
   --color-success-bg: #EAF7EA;
-  --color-fav-active: #8B5E3C;
+  --color-fav-active: #6B3E26;
 
-  --font-heading:  'Playfair Display', serif;
-  --font-body:     'Lato', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-body:    'Lato', sans-serif;
 
-  --spacing-sm:    0.5rem;
-  --spacing-md:    1rem;
-  --spacing-lg:    2rem;
-  --spacing-xl:    3rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
 
-  --radius:        8px;
-  --shadow:        0 2px 8px rgba(0, 0, 0, 0.08);
-  --transition:    all 0.3s ease;
+  --radius:     8px;
+  --shadow:     0 2px 8px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
 }
 
 /* =============================================
@@ -108,21 +107,10 @@ h4 {
   margin-bottom: var(--spacing-md);
 }
 
-h1 {
-  font-size: 2.25rem;
-}
-
-h2 {
-  font-size: 1.75rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-}
-
-h4 {
-  font-size: 1rem;
-}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem;    }
 
 p {
   margin-bottom: var(--spacing-md);
@@ -504,15 +492,74 @@ video {
 }
 
 /* =============================================
-   T4 NEW: FAVORITES TRACKER — PRODUCTS PAGE
+   T4: FAVORITES BUTTON — FIXED
+   Explicitly overrides any inherited disabled
+   or grayed-out styles from the browser or
+   other rules in this stylesheet.
 ============================================= */
+.fav-btn {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  padding: 0.4rem 1.1rem;
+  background-color: var(--color-cream);
+  color: var(--color-brown);
+  border: 2px solid var(--color-brown);
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  line-height: 1.4;
+  appearance: none;
+  -webkit-appearance: none;
+}
 
-/* Sticky panel at the top of the products page */
+.fav-btn:hover {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  border-color: var(--color-brown);
+}
+
+.fav-btn:focus {
+  outline: 2px solid var(--color-peach);
+  outline-offset: 3px;
+}
+
+/* Saved / active state — filled brown */
+.fav-btn.fav-btn--active {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  border-color: var(--color-brown);
+}
+
+.fav-btn.fav-btn--active:hover {
+  background-color: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+}
+
+/* Force override any browser disabled styling */
+.fav-btn:disabled,
+.fav-btn[disabled] {
+  background-color: var(--color-cream) !important;
+  color: var(--color-brown) !important;
+  border-color: var(--color-brown) !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* =============================================
+   T4: FAVORITES PANEL — PRODUCTS PAGE
+============================================= */
 .favorites-panel {
   background-color: #fdf6ec;
   border: 2px solid var(--color-peach);
   border-radius: var(--radius);
-  padding: var(--spacing-lg) var(--spacing-lg);
+  padding: var(--spacing-lg);
   margin: var(--spacing-lg) var(--spacing-lg) 0;
   box-shadow: var(--shadow);
 }
@@ -526,7 +573,6 @@ video {
   flex-wrap: wrap;
 }
 
-/* Red badge showing saved item count */
 .favorites-badge {
   display: inline-flex;
   align-items: center;
@@ -543,5 +589,371 @@ video {
   flex-shrink: 0;
 }
 
-/* List of saved items inside the panel */
-.favorites-list
+.favorites-empty {
+  color: #6b6560;
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.favorites-hint {
+  font-size: 0.9rem;
+  color: #6b6560;
+  margin-top: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+.favorites-hint a {
+  color: var(--color-brown);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.favorites-hint a:hover {
+  color: var(--color-peach);
+}
+
+.favorites-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-sm) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.favorites-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  padding: 0.5rem var(--spacing-md);
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+}
+
+.fav-remove-btn {
+  background: none;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-left: var(--spacing-md);
+}
+
+.fav-remove-btn:hover {
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+/* =============================================
+   T4: CONTACT FORM — CONTACT PAGE
+============================================= */
+.contact-form-section {
+  background-color: var(--color-white);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-brown);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.6rem 0.9rem;
+  border: 2px solid #d4c4b5;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-brown);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input-invalid {
+  border-color: var(--color-error) !important;
+  background-color: var(--color-error-bg) !important;
+}
+
+.field-error {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+  display: block;
+  min-height: 1.2em;
+}
+
+.form-success {
+  background-color: var(--color-success-bg);
+  border: 2px solid var(--color-success);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.form-success h2 {
+  color: var(--color-success);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-success p {
+  color: var(--color-charcoal);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   ABOUT PAGE — STORY SECTION
+============================================= */
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* =============================================
+   ABOUT PAGE — SOURCING GRID
+============================================= */
+.sourcing {
+  background-color: var(--color-light);
+}
+
+.sourcing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.sourcing-card {
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.sourcing-card h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   ABOUT PAGE — STAFF GRID
+============================================= */
+.staff {
+  background-color: var(--color-white);
+}
+
+.staff-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.staff-card {
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-peach);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.staff-info {
+  padding: var(--spacing-md);
+}
+
+.staff-info h3 {
+  margin-bottom: 0.2rem;
+}
+
+.staff-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-peach);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   ABOUT PAGE — FEATURED IMAGE
+============================================= */
+.about-featured {
+  background-color: var(--color-light);
+  text-align: center;
+}
+
+.about-featured picture {
+  display: block;
+  margin: var(--spacing-md) auto;
+  max-width: 800px;
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+footer p {
+  color: var(--color-cream);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* =============================================
+   RESPONSIVE — TABLET (768px and up)
+============================================= */
+@media (min-width: 768px) {
+
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .nav-links {
+    flex-direction: row;
+    width: auto;
+    gap: var(--spacing-sm);
+  }
+
+  .footer-nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-lg);
+  }
+
+  .known-for-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .featured {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .featured picture,
+  .featured-text {
+    flex: 1;
+  }
+
+  .hours-location {
+    flex-direction: row;
+    gap: var(--spacing-xl);
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .story-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .story-text,
+  .story-image {
+    flex: 1;
+  }
+
+  .sourcing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .staff-card {
+    flex-direction: column;
+  }
+
+}
+
+/* =============================================
+   RESPONSIVE — DESKTOP (1024px and up)
+============================================= */
+@media (min-width: 1024px) {
+
+  h1 { font-size: 2.75rem; }
+  h2 { font-size: 2rem;    }
+
+  .hero-text h1 {
+    font-size: 2.75rem;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sourcing-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .staff-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .favorites-panel {
+    margin: var(--spacing-lg) var(--spacing-xl) 0;
+  }
+
+}
