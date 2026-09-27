@@ -1,83 +1,64 @@
 /* ============================================================
-   North Star Bakery — Touchstone 4 JavaScript
-   Features:
-   1. Product Favorites Tracker (interactive feature)
-   2. Contact Form Validation
-   3. localStorage for favorites + form name pre-fill
+   North Star Bakery — script.js
+   Touchstone 4 — hardened version with debug logging
    ============================================================ */
 
-/* ----------------------------------------------------------
-   DATA: Product catalog (array of objects)
-   ---------------------------------------------------------- */
-const products = [
-  { id: "classic-sourdough",   name: "Classic Sourdough",               category: "Breads"   },
-  { id: "honey-oat-loaf",      name: "Honey Oat Loaf",                  category: "Breads"   },
-  { id: "seeded-rye",          name: "Seeded Rye",                      category: "Breads"   },
-  { id: "rosemary-focaccia",   name: "Rosemary Focaccia",               category: "Breads"   },
-  { id: "butter-croissant",    name: "Butter Croissant",                category: "Pastries" },
-  { id: "fruit-danish",        name: "Seasonal Fruit Danish",           category: "Pastries" },
-  { id: "morning-bun",         name: "Cinnamon Morning Bun",            category: "Pastries" },
-  { id: "choc-almond",         name: "Chocolate Almond Croissant",      category: "Pastries" },
-  { id: "vanilla-cake",        name: "Classic Vanilla Celebration Cake", category: "Cakes"   },
-  { id: "choc-ganache-cake",   name: "Dark Chocolate Ganache Cake",     category: "Cakes"   },
-  { id: "lemon-drizzle",       name: "Lemon Drizzle Loaf",              category: "Cakes"   },
-  { id: "carrot-cake",         name: "Carrot Cake",                     category: "Cakes"   }
+var FAVORITES_KEY = "nsb_favorites";
+var NAME_KEY      = "nsb_contact_name";
+
+var products = [
+  { id: "classic-sourdough",   name: "Classic Sourdough",                category: "Breads"   },
+  { id: "honey-oat-loaf",      name: "Honey Oat Loaf",                   category: "Breads"   },
+  { id: "seeded-rye",          name: "Seeded Rye",                       category: "Breads"   },
+  { id: "rosemary-focaccia",   name: "Rosemary Focaccia",                category: "Breads"   },
+  { id: "butter-croissant",    name: "Butter Croissant",                 category: "Pastries" },
+  { id: "fruit-danish",        name: "Seasonal Fruit Danish",            category: "Pastries" },
+  { id: "morning-bun",         name: "Cinnamon Morning Bun",             category: "Pastries" },
+  { id: "choc-almond",         name: "Chocolate Almond Croissant",       category: "Pastries" },
+  { id: "vanilla-cake",        name: "Classic Vanilla Celebration Cake", category: "Cakes"    },
+  { id: "choc-ganache-cake",   name: "Dark Chocolate Ganache Cake",      category: "Cakes"    },
+  { id: "lemon-drizzle",       name: "Lemon Drizzle Loaf",               category: "Cakes"    },
+  { id: "carrot-cake",         name: "Carrot Cake",                      category: "Cakes"    }
 ];
 
 /* ----------------------------------------------------------
-   DATA: Validation rules object
+   STORAGE HELPERS
    ---------------------------------------------------------- */
-const validationRules = {
-  name:        { minLength: 2,  errorMsg: "Please enter your full name (at least 2 characters)." },
-  email:       { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, errorMsg: "Please enter a valid email address." },
-  pickupDate:  { errorMsg: "Please select a pickup date at least 24 hours from today." },
-  requestType: { errorMsg: "Please select a request type." },
-  itemDetails: { minLength: 10, errorMsg: "Please describe your order in at least 10 characters." }
-};
+function loadFavorites() {
+  try {
+    var stored = localStorage.getItem(FAVORITES_KEY);
+    var result = stored ? JSON.parse(stored) : [];
+    console.log("[NSB] loadFavorites:", result);
+    return result;
+  } catch (e) {
+    console.error("[NSB] loadFavorites error:", e);
+    return [];
+  }
+}
+
+function saveFavorites(arr) {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(arr));
+    console.log("[NSB] saveFavorites:", arr);
+  } catch (e) {
+    console.error("[NSB] saveFavorites error:", e);
+  }
+}
 
 /* ----------------------------------------------------------
-   STORAGE KEYS
+   TOGGLE
    ---------------------------------------------------------- */
-const FAVORITES_KEY = "nsb_favorites";
-const NAME_KEY      = "nsb_contact_name";
-
-/* ============================================================
-   FEATURE 1 — PRODUCT FAVORITES TRACKER
-   Appears on products.html
-   ============================================================ */
-
-/**
- * loadFavorites()
- * Reads the favorites array from localStorage.
- * Returns an empty array if nothing is stored yet.
- */
-function loadFavorites() {
-  const stored = localStorage.getItem(FAVORITES_KEY);
-  return stored ? JSON.parse(stored) : [];
-}
-
-/**
- * saveFavorites(favoritesArray)
- * Writes the current favorites array to localStorage.
- */
-function saveFavorites(favoritesArray) {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesArray));
-}
-
-/**
- * toggleFavorite(productId)
- * Adds the product to favorites if it is not already saved;
- * removes it if it is. Saves the updated array and refreshes
- * the favorites panel.
- */
 function toggleFavorite(productId) {
+  console.log("[NSB] toggleFavorite called with:", productId);
   var favorites = loadFavorites();
   var index = favorites.indexOf(productId);
 
   if (index === -1) {
     favorites.push(productId);
+    console.log("[NSB] Added:", productId);
   } else {
     favorites.splice(index, 1);
+    console.log("[NSB] Removed:", productId);
   }
 
   saveFavorites(favorites);
@@ -85,18 +66,17 @@ function toggleFavorite(productId) {
   updateHeartButtons();
 }
 
-/**
- * updateHeartButtons()
- * Reads the current favorites from localStorage and updates
- * every heart button on the page to show filled or empty state.
- */
+/* ----------------------------------------------------------
+   UPDATE HEART BUTTONS
+   ---------------------------------------------------------- */
 function updateHeartButtons() {
   var favorites = loadFavorites();
   var buttons = document.querySelectorAll(".fav-btn");
+  console.log("[NSB] updateHeartButtons — buttons found:", buttons.length);
 
   buttons.forEach(function (btn) {
     var productId = btn.getAttribute("data-product-id");
-    if (favorites.includes(productId)) {
+    if (favorites.indexOf(productId) !== -1) {
       btn.textContent = "♥ Saved";
       btn.classList.add("fav-btn--active");
       btn.setAttribute("aria-pressed", "true");
@@ -108,34 +88,51 @@ function updateHeartButtons() {
   });
 }
 
-/**
- * updateFavoritesPanel()
- * Rebuilds the favorites summary panel that lists saved items.
- * Shows a placeholder message when no items are saved.
- */
+/* ----------------------------------------------------------
+   UPDATE FAVORITES PANEL
+   ---------------------------------------------------------- */
 function updateFavoritesPanel() {
   var panel = document.getElementById("favorites-panel");
-  if (!panel) return;
+  if (!panel) {
+    console.log("[NSB] updateFavoritesPanel — panel not found, skipping");
+    return;
+  }
 
   var favorites = loadFavorites();
-  var list      = document.getElementById("favorites-list");
-  var emptyMsg  = document.getElementById("favorites-empty");
-  var countEl   = document.getElementById("favorites-count");
+  var list     = document.getElementById("favorites-list");
+  var emptyMsg = document.getElementById("favorites-empty");
+  var countEl  = document.getElementById("favorites-count");
+
+  if (!list || !emptyMsg || !countEl) {
+    console.error("[NSB] updateFavoritesPanel — missing panel child elements");
+    return;
+  }
 
   list.innerHTML = "";
 
   if (favorites.length === 0) {
     emptyMsg.style.display = "block";
     countEl.textContent = "0";
+    console.log("[NSB] Panel updated — empty state");
     return;
   }
 
   emptyMsg.style.display = "none";
-  countEl.textContent = favorites.length;
+  countEl.textContent = String(favorites.length);
 
   favorites.forEach(function (productId) {
-    var product = products.find(function (p) { return p.id === productId; });
-    if (!product) return;
+    var product = null;
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        product = products[i];
+        break;
+      }
+    }
+
+    if (!product) {
+      console.warn("[NSB] No product found for id:", productId);
+      return;
+    }
 
     var li = document.createElement("li");
     li.textContent = product.name + " (" + product.category + ")";
@@ -144,6 +141,7 @@ function updateFavoritesPanel() {
     removeBtn.textContent = "Remove";
     removeBtn.className = "fav-remove-btn";
     removeBtn.setAttribute("aria-label", "Remove " + product.name + " from favorites");
+
     removeBtn.addEventListener("click", function () {
       toggleFavorite(productId);
     });
@@ -151,39 +149,47 @@ function updateFavoritesPanel() {
     li.appendChild(removeBtn);
     list.appendChild(li);
   });
+
+  console.log("[NSB] Panel updated —", favorites.length, "item(s)");
 }
 
-/**
- * initFavoritesFeature()
- * Sets up the favorites feature on products.html.
- * Attaches click listeners to all heart buttons and
- * renders the initial state from localStorage.
- */
+/* ----------------------------------------------------------
+   INIT FAVORITES
+   ---------------------------------------------------------- */
 function initFavoritesFeature() {
   var favButtons = document.querySelectorAll(".fav-btn");
-  if (favButtons.length === 0) return;
+  console.log("[NSB] initFavoritesFeature — buttons found:", favButtons.length);
+
+  if (favButtons.length === 0) {
+    console.log("[NSB] No fav buttons on this page, skipping");
+    return;
+  }
 
   favButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", function (event) {
+      event.preventDefault();
       var productId = btn.getAttribute("data-product-id");
+      console.log("[NSB] Button clicked, productId:", productId);
       toggleFavorite(productId);
     });
   });
 
   updateFavoritesPanel();
   updateHeartButtons();
+  console.log("[NSB] Favorites feature initialized");
 }
 
-/* ============================================================
-   FEATURE 2 — CONTACT FORM VALIDATION
-   Appears on contact.html
-   ============================================================ */
+/* ----------------------------------------------------------
+   CONTACT FORM VALIDATION
+   ---------------------------------------------------------- */
+var validationRules = {
+  name:        { minLength: 2,  errorMsg: "Please enter your full name (at least 2 characters)." },
+  email:       { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, errorMsg: "Please enter a valid email address." },
+  pickupDate:  { errorMsg: "Please select a pickup date at least 24 hours from today." },
+  requestType: { errorMsg: "Please select a request type." },
+  itemDetails: { minLength: 10, errorMsg: "Please describe your order in at least 10 characters." }
+};
 
-/**
- * showError(fieldId, message)
- * Displays an error message directly below the specified field.
- * Creates the error element if it does not already exist.
- */
 function showError(fieldId, message) {
   var field = document.getElementById(fieldId);
   if (!field) return;
@@ -202,32 +208,19 @@ function showError(fieldId, message) {
   field.setAttribute("aria-describedby", fieldId + "-error");
 }
 
-/**
- * clearError(fieldId)
- * Removes the error message and invalid styling from a field.
- */
 function clearError(fieldId) {
   var field = document.getElementById(fieldId);
   if (!field) return;
 
   var errorEl = document.getElementById(fieldId + "-error");
   if (errorEl) errorEl.textContent = "";
-
   field.classList.remove("input-invalid");
 }
 
-/**
- * validateName()
- * Checks that the name field is not empty and meets
- * the minimum length requirement.
- * Returns true if valid, false otherwise.
- */
 function validateName() {
   var field = document.getElementById("name");
   if (!field) return true;
-  var value = field.value.trim();
-
-  if (value.length < validationRules.name.minLength) {
+  if (field.value.trim().length < validationRules.name.minLength) {
     showError("name", validationRules.name.errorMsg);
     return false;
   }
@@ -235,18 +228,10 @@ function validateName() {
   return true;
 }
 
-/**
- * validateEmail()
- * Checks that the email field contains a properly formatted
- * email address using a regular expression pattern.
- * Returns true if valid, false otherwise.
- */
 function validateEmail() {
   var field = document.getElementById("email");
   if (!field) return true;
-  var value = field.value.trim();
-
-  if (!validationRules.email.pattern.test(value)) {
+  if (!validationRules.email.pattern.test(field.value.trim())) {
     showError("email", validationRules.email.errorMsg);
     return false;
   }
@@ -254,12 +239,6 @@ function validateEmail() {
   return true;
 }
 
-/**
- * validatePickupDate()
- * Checks that a pickup date has been selected and that it is
- * at least 24 hours in the future (48 hours for custom cakes).
- * Returns true if valid, false otherwise.
- */
 function validatePickupDate() {
   var field            = document.getElementById("pickup-date");
   var requestTypeField = document.getElementById("request-type");
@@ -283,15 +262,9 @@ function validatePickupDate() {
   return true;
 }
 
-/**
- * validateRequestType()
- * Checks that the user has selected a request type from
- * the dropdown. Returns true if valid, false otherwise.
- */
 function validateRequestType() {
   var field = document.getElementById("request-type");
   if (!field) return true;
-
   if (!field.value) {
     showError("request-type", validationRules.requestType.errorMsg);
     return false;
@@ -300,18 +273,10 @@ function validateRequestType() {
   return true;
 }
 
-/**
- * validateItemDetails()
- * Checks that the item details textarea contains a meaningful
- * description of at least 10 characters.
- * Returns true if valid, false otherwise.
- */
 function validateItemDetails() {
   var field = document.getElementById("item-details");
   if (!field) return true;
-  var value = field.value.trim();
-
-  if (value.length < validationRules.itemDetails.minLength) {
+  if (field.value.trim().length < validationRules.itemDetails.minLength) {
     showError("item-details", validationRules.itemDetails.errorMsg);
     return false;
   }
@@ -319,13 +284,8 @@ function validateItemDetails() {
   return true;
 }
 
-/**
- * validateForm()
- * Runs all validation checks and returns true only if every
- * check passes. Focuses the first invalid field.
- */
 function validateForm() {
-  var checks = [
+  var results = [
     validateName(),
     validateEmail(),
     validatePickupDate(),
@@ -333,7 +293,13 @@ function validateForm() {
     validateItemDetails()
   ];
 
-  var allValid = checks.every(function (result) { return result === true; });
+  var allValid = true;
+  for (var i = 0; i < results.length; i++) {
+    if (results[i] === false) {
+      allValid = false;
+      break;
+    }
+  }
 
   if (!allValid) {
     var firstInvalid = document.querySelector(".input-invalid");
@@ -343,15 +309,6 @@ function validateForm() {
   return allValid;
 }
 
-/* ----------------------------------------------------------
-   STORAGE: Save and restore contact name
-   ---------------------------------------------------------- */
-
-/**
- * saveContactName()
- * Saves the value of the name field to localStorage so it
- * can be pre-filled on the next visit.
- */
 function saveContactName() {
   var nameField = document.getElementById("name");
   if (nameField && nameField.value.trim().length > 0) {
@@ -359,30 +316,33 @@ function saveContactName() {
   }
 }
 
-/**
- * restoreContactName()
- * Reads the saved name from localStorage and pre-fills
- * the name field if a value exists.
- */
 function restoreContactName() {
   var nameField = document.getElementById("name");
   if (!nameField) return;
-
   var savedName = localStorage.getItem(NAME_KEY);
-  if (savedName) {
-    nameField.value = savedName;
-  }
+  if (savedName) nameField.value = savedName;
 }
 
-/**
- * initContactForm()
- * Sets up form validation and storage on contact.html.
- * Attaches the submit handler and restores the saved name.
- */
+function showSuccessMessage() {
+  var formSection = document.querySelector(".contact-form-section");
+  if (!formSection) return;
+
+  formSection.innerHTML =
+    "<div class='form-success'>" +
+    "<h2>Thank You!</h2>" +
+    "<p>Your request has been received. We will get back to you within one business day.</p>" +
+    "<p>We look forward to baking for you!</p>" +
+    "</div>";
+}
+
 function initContactForm() {
   var form = document.querySelector(".contact-form");
-  if (!form) return;
+  if (!form) {
+    console.log("[NSB] No contact form on this page, skipping");
+    return;
+  }
 
+  console.log("[NSB] initContactForm — form found");
   restoreContactName();
 
   var nameField        = document.getElementById("name");
@@ -402,35 +362,21 @@ function initContactForm() {
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-
+    console.log("[NSB] Form submitted");
     if (validateForm()) {
       saveContactName();
       showSuccessMessage();
     }
   });
+
+  console.log("[NSB] Contact form initialized");
 }
 
-/**
- * showSuccessMessage()
- * Replaces the form with a friendly confirmation message
- * after a valid submission.
- */
-function showSuccessMessage() {
-  var formSection = document.querySelector(".contact-form-section");
-  if (!formSection) return;
-
-  formSection.innerHTML =
-    "<div class='form-success'>" +
-    "<h2>Thank You!</h2>" +
-    "<p>Your request has been received. We will get back to you within one business day.</p>" +
-    "<p>We look forward to baking for you!</p>" +
-    "</div>";
-}
-
-/* ============================================================
-   INIT — Run the right feature based on the current page
-   ============================================================ */
+/* ----------------------------------------------------------
+   INIT
+   ---------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("[NSB] DOMContentLoaded fired");
   initFavoritesFeature();
   initContactForm();
 });
