@@ -1,41 +1,131 @@
-// Favorites array
+// ============================================================
+// North Star Bakery — Products & Favorites
+// Updated to match full product catalog from the Products page
+// ============================================================
+
+const products = {
+  // --- Breads ---
+  "classic-sourdough": {
+    name: "Classic Sourdough",
+    category: "Breads",
+    price: "$9.00 – $12.00"
+  },
+  "honey-oat-loaf": {
+    name: "Honey Oat Loaf",
+    category: "Breads",
+    price: "$8.00 – $10.00"
+  },
+  "seeded-rye": {
+    name: "Seeded Rye",
+    category: "Breads",
+    price: "$9.00 – $11.00"
+  },
+  "rosemary-focaccia": {
+    name: "Rosemary Focaccia",
+    category: "Breads",
+    price: "$7.00 – $14.00"
+  },
+
+  // --- Pastries ---
+  "butter-croissant": {
+    name: "Butter Croissant",
+    category: "Pastries",
+    price: "$3.50 – $4.50"
+  },
+  "seasonal-fruit-danish": {
+    name: "Seasonal Fruit Danish",
+    category: "Pastries",
+    price: "$4.00 – $5.00"
+  },
+  "cinnamon-morning-bun": {
+    name: "Cinnamon Morning Bun",
+    category: "Pastries",
+    price: "$4.00 – $5.00"
+  },
+  "chocolate-almond-croissant": {
+    name: "Chocolate Almond Croissant",
+    category: "Pastries",
+    price: "$5.00 – $6.00"
+  },
+
+  // --- Cakes ---
+  "classic-vanilla-celebration-cake": {
+    name: "Classic Vanilla Celebration Cake",
+    category: "Cakes",
+    price: "$45.00 – $85.00"
+  },
+  "dark-chocolate-ganache-cake": {
+    name: "Dark Chocolate Ganache Cake",
+    category: "Cakes",
+    price: "$50.00 – $95.00"
+  },
+  "lemon-drizzle-loaf": {
+    name: "Lemon Drizzle Loaf",
+    category: "Cakes",
+    price: "$18.00 – $24.00"
+  },
+  "carrot-cake-cream-cheese": {
+    name: "Carrot Cake with Cream Cheese Frosting",
+    category: "Cakes",
+    price: "$40.00 – $75.00"
+  }
+};
+
+// ============================================================
+// Favorites State
+// ============================================================
+
 let favorites = [];
 
-// Toggle favorite on or off
-function toggleFavorite(productId) {
-  productId = productId.trim();
+// ============================================================
+// Toggle a product in/out of favorites
+// ============================================================
 
-  const btn = document.querySelector(`[data-product-id="${productId}"]`);
-  if (!btn) {
-    console.warn(`toggleFavorite: no button found for "${productId}"`);
+function toggleFavorite(productId) {
+  if (!products[productId]) {
+    console.warn(`Product ID "${productId}" not found in catalog.`);
     return;
   }
 
+  const btn = document.querySelector(`[data-product-id="${productId}"]`);
   const alreadySaved = favorites.some(item => item.id === productId);
 
   if (alreadySaved) {
     favorites = favorites.filter(item => item.id !== productId);
-    btn.textContent = "☆ Save to Favorites";
+    if (btn) {
+      btn.textContent = "Save to Favorites";
+      btn.classList.remove("favorited");
+      btn.setAttribute("aria-pressed", "false");
+    }
   } else {
-    // Read name and price directly from the card, not a separate data object
-    const card      = btn.closest(".card-body");
-    const name      = card?.querySelector("h3")?.textContent.trim()  ?? productId;
-    const price     = card?.querySelector(".price")?.textContent.trim() ?? "";
-
-    favorites.push({ id: productId, name, price });
-    btn.textContent = "♥ Saved!";
+    favorites.push({ id: productId, ...products[productId] });
+    if (btn) {
+      btn.textContent = "♥ Saved";
+      btn.classList.add("favorited");
+      btn.setAttribute("aria-pressed", "true");
+    }
   }
 
   saveFavorites();
   renderFavorites();
 }
 
-// Save favorites array to localStorage
+// ============================================================
+// Persist favorites to localStorage
+// ============================================================
+
 function saveFavorites() {
-  localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
+  try {
+    localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
+  } catch (e) {
+    console.error("Could not save favorites to localStorage:", e);
+  }
 }
 
-// Display the favorites list on the page
+// ============================================================
+// Render favorites list grouped by category
+// ============================================================
+
 function renderFavorites() {
   const list = document.getElementById("favorites-list");
   if (!list) return;
@@ -43,48 +133,99 @@ function renderFavorites() {
   list.innerHTML = "";
 
   if (favorites.length === 0) {
-    const empty = document.createElement("p");
-    empty.textContent = "No favorites saved yet.";
-    list.appendChild(empty);
+    list.innerHTML = "<p>No favorites saved yet.</p>";
     return;
   }
 
-  favorites.forEach(item => {
-    const li = document.createElement("li");
+  // Group favorites by category
+  const grouped = favorites.reduce((acc, item) => {
+    const cat = item.category || "Other";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(item);
+    return acc;
+  }, {});
 
-    const nameSpan = document.createElement("span");
-    nameSpan.textContent = `${item.name} — ${item.price}`;
+  // Render each category group
+  Object.entries(grouped).forEach(([category, items]) => {
+    const section = document.createElement("div");
+    section.classList.add("favorites-category");
 
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "remove-btn";
-    removeBtn.setAttribute("aria-label", `Remove ${item.name} from favorites`);
-    removeBtn.addEventListener("click", () => toggleFavorite(item.id));
+    const heading = document.createElement("h3");
+    heading.textContent = category;
+    section.appendChild(heading);
 
-    li.appendChild(nameSpan);
-    li.appendChild(removeBtn);
-    list.appendChild(li);
+    const ul = document.createElement("ul");
+    items.forEach(item => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span class="fav-name">${item.name}</span>
+        <span class="fav-price">${item.price}</span>
+        <button
+          class="remove-favorite"
+          data-product-id="${item.id}"
+          aria-label="Remove ${item.name} from favorites"
+          onclick="toggleFavorite('${item.id}')">
+          ✕
+        </button>
+      `;
+      ul.appendChild(li);
+    });
+
+    section.appendChild(ul);
+    list.appendChild(section);
   });
 }
 
-// Load favorites from localStorage when the page opens
+// ============================================================
+// Load favorites from localStorage on page load
+// ============================================================
+
 function loadFavorites() {
   try {
     const stored = localStorage.getItem("bakeryFavorites");
     if (stored) {
-      favorites = JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+
+      // Validate stored IDs still exist in the current catalog
+      favorites = parsed.filter(item => products[item.id]);
+
       renderFavorites();
 
-      // Restore heart button states
+      // Restore button states for all favorited products
       favorites.forEach(item => {
         const btn = document.querySelector(`[data-product-id="${item.id}"]`);
-        if (btn) btn.textContent = "♥ Saved!";
+        if (btn) {
+          btn.textContent = "♥ Saved";
+          btn.classList.add("favorited");
+          btn.setAttribute("aria-pressed", "true");
+        }
       });
     }
-  } catch (error) {
-    console.error("Failed to load favorites from localStorage:", error);
+  } catch (e) {
+    console.error("Could not load favorites from localStorage:", e);
     favorites = [];
   }
 }
+
+// ============================================================
+// Clear all favorites
+// ============================================================
+
+function clearAllFavorites() {
+  favorites = [];
+  saveFavorites();
+  renderFavorites();
+
+  // Reset all buttons on the page
+  document.querySelectorAll("[data-product-id]").forEach(btn => {
+    btn.textContent = "Save to Favorites";
+    btn.classList.remove("favorited");
+    btn.setAttribute("aria-pressed", "false");
+  });
+}
+
+// ============================================================
+// Init
+// ============================================================
 
 window.addEventListener("DOMContentLoaded", loadFavorites);
