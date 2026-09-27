@@ -960,3 +960,40 @@ footer p {
   }
 
 }
+/* Product Cards */
+.product-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+/* Heart Button */
+.heart-btn {
+  background-color: #fff;
+  border: 1px solid #c0392b;
+  color: #c0392b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.heart-btn:hover {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+/* Favorites Section */
+#favorites-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff8f0;
+  border-radius: 8px;
+}
+
+#favorites-list li {
+  padding: 6px 0;
+  font-size: 16px;
+}
+
