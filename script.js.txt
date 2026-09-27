@@ -1,73 +1,61 @@
 // ============================================================
 // North Star Bakery — Products & Favorites
-// Updated to match full product catalog from the Products page
+// Layout: product rows with inline ♥/☆ toggle, favorites list below
 // ============================================================
 
 const products = {
   // --- Breads ---
   "classic-sourdough": {
     name: "Classic Sourdough",
-    category: "Breads",
-    price: "$9.00 – $12.00"
+    price: "$9.00"
   },
   "honey-oat-loaf": {
     name: "Honey Oat Loaf",
-    category: "Breads",
-    price: "$8.00 – $10.00"
+    price: "$8.00"
   },
   "seeded-rye": {
     name: "Seeded Rye",
-    category: "Breads",
-    price: "$9.00 – $11.00"
+    price: "$9.00"
   },
   "rosemary-focaccia": {
     name: "Rosemary Focaccia",
-    category: "Breads",
-    price: "$7.00 – $14.00"
+    price: "$7.00"
   },
 
   // --- Pastries ---
   "butter-croissant": {
     name: "Butter Croissant",
-    category: "Pastries",
-    price: "$3.50 – $4.50"
+    price: "$3.50"
   },
   "seasonal-fruit-danish": {
     name: "Seasonal Fruit Danish",
-    category: "Pastries",
-    price: "$4.00 – $5.00"
+    price: "$4.00"
   },
   "cinnamon-morning-bun": {
     name: "Cinnamon Morning Bun",
-    category: "Pastries",
-    price: "$4.00 – $5.00"
+    price: "$4.00"
   },
   "chocolate-almond-croissant": {
     name: "Chocolate Almond Croissant",
-    category: "Pastries",
-    price: "$5.00 – $6.00"
+    price: "$5.00"
   },
 
   // --- Cakes ---
   "classic-vanilla-celebration-cake": {
     name: "Classic Vanilla Celebration Cake",
-    category: "Cakes",
-    price: "$45.00 – $85.00"
+    price: "$45.00"
   },
   "dark-chocolate-ganache-cake": {
     name: "Dark Chocolate Ganache Cake",
-    category: "Cakes",
-    price: "$50.00 – $95.00"
+    price: "$50.00"
   },
   "lemon-drizzle-loaf": {
     name: "Lemon Drizzle Loaf",
-    category: "Cakes",
-    price: "$18.00 – $24.00"
+    price: "$18.00"
   },
   "carrot-cake-cream-cheese": {
     name: "Carrot Cake with Cream Cheese Frosting",
-    category: "Cakes",
-    price: "$40.00 – $75.00"
+    price: "$40.00"
   }
 };
 
@@ -78,12 +66,12 @@ const products = {
 let favorites = [];
 
 // ============================================================
-// Toggle a product in/out of favorites
+// Toggle ♥ / ☆ on a product row
 // ============================================================
 
 function toggleFavorite(productId) {
   if (!products[productId]) {
-    console.warn(`Product ID "${productId}" not found in catalog.`);
+    console.warn(`Product ID "${productId}" not found.`);
     return;
   }
 
@@ -91,18 +79,20 @@ function toggleFavorite(productId) {
   const alreadySaved = favorites.some(item => item.id === productId);
 
   if (alreadySaved) {
+    // Remove from favorites
     favorites = favorites.filter(item => item.id !== productId);
     if (btn) {
-      btn.textContent = "Save to Favorites";
+      btn.textContent = "☆";
       btn.classList.remove("favorited");
-      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("aria-label", `Add ${products[productId].name} to favorites`);
     }
   } else {
+    // Add to favorites
     favorites.push({ id: productId, ...products[productId] });
     if (btn) {
-      btn.textContent = "♥ Saved";
+      btn.textContent = "♥";
       btn.classList.add("favorited");
-      btn.setAttribute("aria-pressed", "true");
+      btn.setAttribute("aria-label", `Remove ${products[productId].name} from favorites`);
     }
   }
 
@@ -111,19 +101,26 @@ function toggleFavorite(productId) {
 }
 
 // ============================================================
-// Persist favorites to localStorage
+// Save to localStorage
 // ============================================================
 
 function saveFavorites() {
   try {
     localStorage.setItem("bakeryFavorites", JSON.stringify(favorites));
   } catch (e) {
-    console.error("Could not save favorites to localStorage:", e);
+    console.error("Could not save favorites:", e);
   }
 }
 
 // ============================================================
-// Render favorites list grouped by category
+// Render the favorites list below the product rows
+//
+// Output matches:
+// ─────────────────────────
+// Your Favorites
+// ─────────────────────────
+// • Sourdough Loaf — $8.00
+// • Cinnamon Morning Bun — $4.50
 // ============================================================
 
 function renderFavorites() {
@@ -137,47 +134,15 @@ function renderFavorites() {
     return;
   }
 
-  // Group favorites by category
-  const grouped = favorites.reduce((acc, item) => {
-    const cat = item.category || "Other";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(item);
-    return acc;
-  }, {});
-
-  // Render each category group
-  Object.entries(grouped).forEach(([category, items]) => {
-    const section = document.createElement("div");
-    section.classList.add("favorites-category");
-
-    const heading = document.createElement("h3");
-    heading.textContent = category;
-    section.appendChild(heading);
-
-    const ul = document.createElement("ul");
-    items.forEach(item => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <span class="fav-name">${item.name}</span>
-        <span class="fav-price">${item.price}</span>
-        <button
-          class="remove-favorite"
-          data-product-id="${item.id}"
-          aria-label="Remove ${item.name} from favorites"
-          onclick="toggleFavorite('${item.id}')">
-          ✕
-        </button>
-      `;
-      ul.appendChild(li);
-    });
-
-    section.appendChild(ul);
-    list.appendChild(section);
+  favorites.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} — ${item.price}`;
+    list.appendChild(li);
   });
 }
 
 // ============================================================
-// Load favorites from localStorage on page load
+// Load favorites from localStorage and restore button states
 // ============================================================
 
 function loadFavorites() {
@@ -186,46 +151,33 @@ function loadFavorites() {
     if (stored) {
       const parsed = JSON.parse(stored);
 
-      // Validate stored IDs still exist in the current catalog
+      // Drop any IDs that no longer exist in the catalog
       favorites = parsed.filter(item => products[item.id]);
 
       renderFavorites();
 
-      // Restore button states for all favorited products
+      // Restore ♥ on all previously saved buttons
       favorites.forEach(item => {
         const btn = document.querySelector(`[data-product-id="${item.id}"]`);
         if (btn) {
-          btn.textContent = "♥ Saved";
+          btn.textContent = "♥";
           btn.classList.add("favorited");
-          btn.setAttribute("aria-pressed", "true");
+          btn.setAttribute("aria-label", `Remove ${item.name} from favorites`);
         }
       });
+    } else {
+      // Nothing stored yet — show empty state
+      renderFavorites();
     }
   } catch (e) {
-    console.error("Could not load favorites from localStorage:", e);
+    console.error("Could not load favorites:", e);
     favorites = [];
+    renderFavorites();
   }
 }
 
 // ============================================================
-// Clear all favorites
-// ============================================================
-
-function clearAllFavorites() {
-  favorites = [];
-  saveFavorites();
-  renderFavorites();
-
-  // Reset all buttons on the page
-  document.querySelectorAll("[data-product-id]").forEach(btn => {
-    btn.textContent = "Save to Favorites";
-    btn.classList.remove("favorited");
-    btn.setAttribute("aria-pressed", "false");
-  });
-}
-
-// ============================================================
-// Init
+// Init on page load
 // ============================================================
 
 window.addEventListener("DOMContentLoaded", loadFavorites);
