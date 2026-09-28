@@ -63,7 +63,6 @@
                 placeholder="Enter your full name"
                 autocomplete="name"
               />
-              <!-- T4: error span for JS validation feedback -->
               <span class="field-error" id="name-error" role="alert"></span>
             </div>
 
@@ -79,7 +78,6 @@
                 placeholder="Enter your email address"
                 autocomplete="email"
               />
-              <!-- T4: error span for JS validation feedback -->
               <span class="field-error" id="email-error" role="alert"></span>
             </div>
 
@@ -105,12 +103,11 @@
                 id="pickup-date"
                 name="pickup-date"
               />
-              <!-- T4: min attribute is set dynamically by setPickupDateMin() -->
+              <!-- min attribute is set dynamically by setPickupDateMin() -->
               <small>
                 Please allow at least 48 hours for custom cake
                 orders and 24 hours for all other pre-orders.
               </small>
-              <!-- T4: error span for JS validation feedback -->
               <span class="field-error" id="pickup-date-error" role="alert"></span>
             </div>
 
@@ -142,7 +139,6 @@
                   Other
                 </option>
               </select>
-              <!-- T4: error span for JS validation feedback -->
               <span class="field-error" id="request-type-error" role="alert"></span>
             </div>
 
@@ -159,7 +155,6 @@
 or ask. For custom cakes, include size, flavor,
 frosting preference, and any decoration ideas."
               ></textarea>
-              <!-- T4: error span for JS validation feedback -->
               <span class="field-error" id="item-details-error" role="alert"></span>
             </div>
 
@@ -210,7 +205,6 @@ requirements we should know about (optional)."
                   Other
                 </option>
               </select>
-              <!-- No validation required on this optional field -->
             </div>
 
             <!-- Submit Button -->
@@ -222,8 +216,8 @@ requirements we should know about (optional)."
 
           </form>
 
-          <!-- T4: Confirmation message — hidden until successful submit -->
-          <!-- contact.js hides the form and shows this div on success  -->
+          <!-- Confirmation message — hidden until successful submit -->
+          <!-- contact.js hides the form and shows this div on success -->
           <div id="form-confirmation" role="status">
             <h2>Thank You for Your Request!</h2>
             <p>
@@ -365,7 +359,7 @@ requirements we should know about (optional)."
       </nav>
     </footer>
 
-    <!-- T4: JavaScript — loaded at end of body so DOM is ready -->
+    <!-- JavaScript — loaded at end of body so DOM is ready -->
     <script src="contact.js"></script>
 
   </body>
