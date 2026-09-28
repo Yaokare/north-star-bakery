@@ -27,6 +27,15 @@
   --color-white:   #FFFFFF;
   --color-light:   #F5EDE3;
 
+  /* NEW — Touchstone 4 semantic tokens */
+  --color-error:        #C0392B;
+  --color-error-bg:     #FDECEA;
+  --color-success:      #1E7E34;
+  --color-success-bg:   #EAF7EA;
+  --color-success-border: #27AE60;
+  --color-favorite:     #6B3E26;   /* reuses brown for active state */
+  --color-favorite-hover: #F5E6D3;
+
   --font-heading:  'Playfair Display', serif;
   --font-body:     'Lato', sans-serif;
 
@@ -497,6 +506,118 @@ video {
 }
 
 /* =============================================
+   FAVORITE BUTTON — PRODUCTS PAGE (T4)
+============================================= */
+
+/*
+   Injected by favorites.js into every .card-body.
+   Sits below the .price paragraph.
+*/
+.btn-favorite {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--color-brown);
+  color: var(--color-brown);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-top: var(--spacing-sm);
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.btn-favorite:hover {
+  background-color: var(--color-favorite-hover);
+  border-color: var(--color-peach);
+  color: var(--color-charcoal);
+}
+
+/* Active / saved state */
+.btn-favorite-active {
+  background-color: var(--color-brown);
+  border-color: var(--color-brown);
+  color: var(--color-cream);
+}
+
+.btn-favorite-active:hover {
+  background-color: var(--color-peach);
+  border-color: var(--color-peach);
+  color: var(--color-charcoal);
+}
+
+/* =============================================
+   FAVORITES PANEL — PRODUCTS PAGE (T4)
+============================================= */
+
+/*
+   Injected by favorites.js between the last
+   .product-category section and .video-section.
+*/
+.favorites-panel {
+  background-color: var(--color-light);
+  border: 2px solid var(--color-peach);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin: 0 var(--spacing-lg) var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.favorites-panel h2 {
+  color: var(--color-brown);
+  margin-bottom: var(--spacing-sm);
+}
+
+.favorites-panel > p {
+  max-width: 680px;
+  margin-bottom: var(--spacing-lg);
+  color: #6b6560;
+  font-size: 0.95rem;
+}
+
+/* The outer <ul> that holds category groups */
+#favorites-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Each category group item */
+.favorites-category {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-charcoal);
+}
+
+.favorites-category strong {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-brown);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Nested product name list */
+.favorites-category ul {
+  list-style: disc;
+  padding-left: var(--spacing-lg);
+}
+
+.favorites-category ul li {
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+}
+
+/* Empty-state message */
+.favorites-empty {
+  color: #9e9189;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* =============================================
    STORY SECTION — ABOUT PAGE
 ============================================= */
 .story {
@@ -688,6 +809,72 @@ textarea {
 }
 
 /* =============================================
+   FORM VALIDATION ERRORS — CONTACT PAGE (T4)
+============================================= */
+
+/*
+   Each .field-error <span> sits immediately after
+   its input/select/textarea inside .form-group.
+   Hidden by default; shown by contact.js when
+   a field fails validation.
+*/
+.field-error {
+  display: none;           /* shown via JS: el.style.display = "block" */
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  border-left: 3px solid var(--color-error);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.35rem 0.65rem;
+  margin-top: 0.2rem;
+}
+
+/*
+   When a field has an active error, give the
+   input itself a red border so the connection
+   between field and message is visually clear.
+*/
+input.input-error,
+select.input-error,
+textarea.input-error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
+
+/* =============================================
+   FORM CONFIRMATION MESSAGE — CONTACT PAGE (T4)
+============================================= */
+
+/*
+   Replaces the form after a successful submission.
+   Hidden by default; shown by contact.js after
+   all validation passes.
+*/
+#form-confirmation {
+  display: none;           /* shown via JS: el.style.display = "block" */
+  background-color: var(--color-success-bg);
+  border: 2px solid var(--color-success-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+#form-confirmation h2 {
+  color: var(--color-success);
+  margin-bottom: var(--spacing-md);
+}
+
+#form-confirmation p {
+  color: var(--color-charcoal);
+  max-width: 520px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+/* =============================================
    CONTACT INFO SIDEBAR — CONTACT PAGE
 ============================================= */
 .contact-info {
@@ -871,6 +1058,11 @@ footer p {
 
   .card {
     flex: 1 1 calc(50% - 1rem);
+  }
+
+  /* Favorites Panel — full width within its section padding */
+  .favorites-panel {
+    margin: 0 0 var(--spacing-lg);
   }
 
   /* Story Section */
