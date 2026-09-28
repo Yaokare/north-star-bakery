@@ -1152,3 +1152,79 @@ footer p {
   }
 
 }
+/* ── Favorite Buttons ─────────────────────────── */
+.btn-favorite {
+  background: none;
+  border: 1px solid #b5651d;
+  color: #b5651d;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-favorite:hover {
+  background: #f5e6d3;
+}
+
+.btn-favorite-active {
+  background: #b5651d;
+  color: #fff;
+}
+
+/* ── Favorites Panel ──────────────────────────── */
+.favorites-panel {
+  background: #fdf6ee;
+  border: 2px solid #b5651d;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin: 2rem auto;
+  max-width: 860px;
+}
+
+.favorites-panel h2 {
+  margin-top: 0;
+  color: #5a3010;
+}
+
+#favorites-list {
+  list-style: none;
+  padding: 0;
+}
+
+.favorites-category {
+  margin-bottom: 0.75rem;
+}
+
+.favorites-category ul {
+  margin: 0.25rem 0 0 1rem;
+  padding: 0;
+  list-style: disc;
+}
+
+.favorites-empty {
+  color: #888;
+  font-style: italic;
+}
+
+/* ── Form Validation Errors ───────────────────── */
+.field-error {
+  display: none;
+  color: #c0392b;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+/* ── Form Confirmation Message ────────────────── */
+#form-confirmation {
+  display: none;
+  background: #eaf7ea;
+  border: 1px solid #27ae60;
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+  color: #1e7e34;
+}
+
